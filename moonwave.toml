@@ -1,0 +1,1 @@
+name = "DataVault"`ntagline = "Typed & Replicated player data on top of ProfileStore"`nversion = "1.0.0"`ngithub = "https://github.com"`nbaseUrl = "/DataVault/"`n`n[navBar]`nlinks = [`n    { path = "/docs/intro", label = "Guides", position = "left" },`n    { path = "/api/", label = "API Reference", position = "left" }`n]`n`n[theme]`nprimaryColor = "#007acc"
