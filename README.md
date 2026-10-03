@@ -2,9 +2,11 @@
 
 **Typed & Replicated player data on top of ProfileStore**
 
+→ Also the successor of [ProfileStoreTyped](https://devforum.roblox.com/t/profilestoretyped/4870183/3), including all changes noted.
+
 Version `1.0.0` · by [@soggybird0](https://www.roblox.com/users/profile?username=soggybird0)
 
-DataVault is a lightweight, fully typed wrapper around [ProfileStore](https://devforum.roblox.com/t/profilestore) that gives you strong Luau types, automatic client replication, and a clean session API — without forcing the new type solver.
+DataVault is a lightweight, fully typed wrapper around [ProfileStore](soggybird0.github.io/DataVault/) that gives you strong Luau types, automatic client replication, and a clean session API — without forcing the new type solver.
 
 ---
 
