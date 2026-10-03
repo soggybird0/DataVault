@@ -6,7 +6,7 @@
 
 Version `1.0.0` · by [@soggybird0](https://www.roblox.com/users/profile?username=soggybird0)
 
-DataVault is a lightweight, fully typed wrapper around [ProfileStore]([soggybird0.github.io/DataVault/](https://devforum.roblox.com/t/profilestore-save-your-player-data-easy-datastore-module/3190543)) that gives you strong Luau types, automatic client replication, and a clean session API — without forcing the new type solver.
+DataVault is a lightweight, fully typed wrapper around [ProfileStore]((https://devforum.roblox.com/t/profilestore-save-your-player-data-easy-datastore-module/3190543)) that gives you strong Luau types, automatic client replication, and a clean session API — without forcing the new type solver.
 
 ---
 
