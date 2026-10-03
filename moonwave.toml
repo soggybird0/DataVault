@@ -1,6 +1,7 @@
 name = "DataVault"
 tagline = "Typed & Replicated player data on top of ProfileStore"
 version = "1.0.0"
+
 github = "https://github.com"
 baseUrl = "/DataVault/"
 
