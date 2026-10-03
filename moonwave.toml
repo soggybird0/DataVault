@@ -1,1 +1,14 @@
-name = "DataVault"`ntagline = "Typed & Replicated player data on top of ProfileStore"`nversion = "1.0.0"`ngithub = "https://github.com"`nbaseUrl = "/DataVault/"`n`n[navBar]`nlinks = [`n    { path = "/docs/intro", label = "Guides", position = "left" },`n    { path = "/api/", label = "API Reference", position = "left" }`n]`n`n[theme]`nprimaryColor = "#007acc"
+name = "DataVault"
+tagline = "Typed & Replicated player data on top of ProfileStore"
+version = "1.0.0"
+github = "https://github.com"
+baseUrl = "/DataVault/"
+
+[navBar]
+links = [
+    { path = "/docs/intro", label = "Guides", position = "left" },
+    { path = "/api/", label = "API Reference", position = "left" }
+]
+
+[theme]
+primaryColor = "#007acc"
