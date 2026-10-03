@@ -159,58 +159,109 @@ end
 
 --// Class
 
+--[=[
+	@class DataVaultClient
+
+	Client-side interface for receiving and observing replicated DataVault data.
+
+	DataVaultClient instances are read-only when `ClientGuard` is enabled.
+	Changes are received automatically from the server through replication.
+]=]
 local DataVaultClient = {}
 
-function DataVaultClient.Open<T>(Options: Types.Config<T>):
-	{
-		Data: T?,
-		Key: string?,
-		Seq: number,
-		Changed: Signal.Signal<T>,
-		Ready: Signal.Signal<T>,
-	} & {
-		PathObservers: { [string]: PathObserver<T> },
-		HasFiredReady: boolean,
-		Raw: T?,
-		Guard: boolean,
-	} & {
-		Get: (self: any) -> T?,
-		GetKey: (self: any) -> string?,
-		GetAt: (self: any, Path: { any } ) -> any,
-		IsReady: (self: any) -> boolean,
-		Observe: (self: any, Listener: (Data: T) -> ()) -> any,
-		ObservePath: (self: any, Path: { any }, Listener: (Value: any) -> ()) -> any,
-		Wait: (self: any, Timeout: number?) -> T?,
-		RequestSync: (self: any) -> (),
-	}
-	
+--[=[
+	@type Client { Data: T?, Key: string?, Seq: number, Changed: Types.Signal<T>, Ready: Types.Signal<T> }
+	@within DataVaultClient
+
+	The object returned by [DataVaultClient.Open].
+]=]
+
+--[=[
+	Opens or retrieves a client-side DataVault instance.
+
+	If an instance for the given store already exists, the existing
+	instance is returned.
+
+	@within DataVaultClient
+	@param Options Types.Config<T>
+	@return Client
+]=]
+function DataVaultClient.Open<T>(Options: Types.Config<T>)
 	local Existing = Clients[Options.StoreName]
 	if Existing then
-		return Existing
+		return Existing :: Client
 	end
 
 	EnsureListener()
 
 	local Client = {
+		--[=[
+			@prop Data T?
+			@within DataVaultClient
+			@readonly
+
+			The current replicated data. Read-only when `ClientGuard` is enabled.
+		]=]
 		Data = nil :: T?,
+
+		--[=[
+			@prop Key string?
+			@within DataVaultClient
+			@readonly
+
+			The key associated with the current replica.
+		]=]
 		Key = nil :: string?,
+
+		--[=[
+			@prop Seq number
+			@within DataVaultClient
+			@readonly
+
+			The sequence number of the latest received replica.
+		]=]
 		Seq = 0,
+
+		--[=[
+			@prop Changed Types.Signal<T>
+			@within DataVaultClient
+			@readonly
+
+			Fired whenever the replicated data changes.
+		]=]
 		Changed = Signal.new() :: Signal.Signal<T>,
+
+		--[=[
+			@prop Ready Types.Signal<T>
+			@within DataVaultClient
+			@readonly
+
+			Fired once when the initial replica is received.
+		]=]
 		Ready = Signal.new() :: Signal.Signal<T>,
+
 		PathObservers = {} :: { [string]: PathObserver<T> },
 		HasFiredReady = false,
 		Raw = nil :: T?,
 		Guard = Options.ClientGuard ~= "Off",
 	}
 
-	function Client:Get(): T?
-		return self.Data
-	end
+	--[=[
+		Returns the key associated with the current replica.
 
+		@within DataVaultClient
+		@return string?
+	]=]
 	function Client:GetKey(): string?
 		return self.Key
 	end
 
+	--[=[
+		Creates and returns a deep copy of the current data.
+
+		@within DataVaultClient
+		@return T?
+	]=]
 	function Client:Snapshot(): T?
 		if self.Raw == nil then
 			return nil
@@ -218,6 +269,13 @@ function DataVaultClient.Open<T>(Options: Types.Config<T>):
 		return Util.DeepCopy(self.Raw)
 	end
 
+	--[=[
+		Returns the value at a path within the replicated data.
+
+		@within DataVaultClient
+		@param Path Types.Path | string
+		@return any
+	]=]
 	function Client:GetAt(Path: Types.Path | string): any
 		if self.Raw == nil then
 			return nil
@@ -225,6 +283,13 @@ function DataVaultClient.Open<T>(Options: Types.Config<T>):
 		return GuardedValue(self, Util.GetAt(self.Raw, Util.NormalizePath(Path)))
 	end
 
+	--[=[
+		Checks whether a path exists within the replicated data.
+
+		@within DataVaultClient
+		@param Path Types.Path | string
+		@return boolean
+	]=]
 	function Client:HasPath(Path: Types.Path | string): boolean
 		if self.Raw == nil then
 			return false
@@ -232,10 +297,26 @@ function DataVaultClient.Open<T>(Options: Types.Config<T>):
 		return Util.HasAt(self.Raw, Util.NormalizePath(Path))
 	end
 
+	--[=[
+		Returns whether the initial replica has been received.
+
+		@within DataVaultClient
+		@return boolean
+	]=]
 	function Client:IsReady(): boolean
 		return self.Raw ~= nil
 	end
 
+	--[=[
+		Observes changes to the entire data object.
+
+		The listener is immediately deferred with the current data if the
+		replica has already been received.
+
+		@within DataVaultClient
+		@param Listener (Data: T) -> ()
+		@return Types.Connection
+	]=]
 	function Client:Observe(Listener: (Data: T) -> ())
 		local Connection = self.Changed:Connect(Listener)
 		if self.Data ~= nil then
@@ -245,6 +326,17 @@ function DataVaultClient.Open<T>(Options: Types.Config<T>):
 		return Connection
 	end
 
+	--[=[
+		Observes changes to a specific path.
+
+		The listener is immediately deferred with the current value if
+		the replica has already been received.
+
+		@within DataVaultClient
+		@param Path Types.Path | string
+		@param Listener (Value: any) -> ()
+		@return Types.Connection
+	]=]
 	function Client:ObservePath(Path: Types.Path | string, Listener: (Value: any) -> ())
 		local Normalized = Util.NormalizePath(Path)
 		local Key = Util.PathKey(Normalized)
@@ -265,6 +357,16 @@ function DataVaultClient.Open<T>(Options: Types.Config<T>):
 		return Connection
 	end
 
+	--[=[
+		Waits until the initial replica is received.
+
+		If a timeout is provided and expires before the replica arrives,
+		`nil` is returned.
+
+		@within DataVaultClient
+		@param Timeout number?
+		@return T?
+	]=]
 	function Client:Wait(Timeout: number?): T?
 		if self.Data ~= nil then
 			return self.Data
@@ -297,6 +399,14 @@ function DataVaultClient.Open<T>(Options: Types.Config<T>):
 		return coroutine.yield()
 	end
 
+	--[=[
+		Requests a full synchronization from the server.
+
+		This is normally handled automatically when the client detects
+		a missing or out-of-order patch.
+
+		@within DataVaultClient
+	]=]
 	function Client:RequestSync()
 		ReplicaRequest:FireServer({
 			StoreName = Options.StoreName,
@@ -319,7 +429,9 @@ function DataVaultClient.Open<T>(Options: Types.Config<T>):
 		end
 	end)
 
-	return Client
+	type Client = typeof(Client)
+
+	return Client :: Client
 end
 
 return DataVaultClient

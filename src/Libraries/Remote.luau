@@ -1,8 +1,6 @@
 --!optimize 2
---[=[
-	These are thin-typed wrappers around RemoteEvents
-	This provides the same usage as RBXScriptSignals without bloat
-]=]
+-- These are thin-typed wrappers around RemoteEvents
+-- This provides the same usage as RBXScriptSignals without bloat
 
 --// Types
 

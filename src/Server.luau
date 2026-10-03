@@ -42,8 +42,33 @@ end
 
 --// Class
 
+--[=[
+	@class DataVaultServer
+
+	Server-side data/session manager returned by [DataVaultServer.Open].
+
+	Manages ProfileStore sessions, data mutations, replication, observations,
+	and player binding.
+]=]
 local DataVaultServer = {}
 
+--[=[
+	@type Server { Name: string, Template: T, Mock: boolean, OnJoin: Types.Signal<Player, T>, OnLeave: Types.Signal<Player>, OnSessionLoaded: Types.Signal<string, T>, OnSessionEnded: Types.Signal<string>, OnMutated: Types.Signal<string, T> }
+	@within DataVaultServer
+
+	The object returned by [DataVaultServer.Open].
+]=]
+
+--[=[
+	Opens a new DataVault store.
+
+	The returned server object manages ProfileStore sessions,
+	data mutations, replication, observations, and player binding.
+
+	@within DataVaultServer
+	@param Options Types.Config<T>
+	@return Server
+]=]
 function DataVaultServer.Open<T>(Options: Types.Config<T>)
 	if type(Options) ~= "table" then
 		error("DataVault: config must be a table", 2)
@@ -81,13 +106,76 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 	local SchemaVersion = Options.SchemaVersion
 
 	local Server = {
+		--[=[
+			@prop Name string
+			@within DataVaultServer
+			@readonly
+
+			The name of the underlying ProfileStore.
+		]=]
 		Name = Options.StoreName :: string,
+
+		--[=[
+			@prop Template T
+			@within DataVaultServer
+			@readonly
+
+			The template table used for reconciliation.
+		]=]
 		Template = Options.Template :: T,
+
+		--[=[
+			@prop Mock boolean
+			@within DataVaultServer
+			@readonly
+
+			Whether this store is running in mock mode.
+		]=]
 		Mock = UseMock :: boolean,
+
+		--[=[
+			@prop OnJoin Types.Signal<Player, T>
+			@within DataVaultServer
+			@readonly
+
+			Fired when a player's profile is loaded.
+		]=]
 		OnJoin = Signal.new() :: Types.Signal<Player, T>,
+
+		--[=[
+			@prop OnLeave Types.Signal<Player>
+			@within DataVaultServer
+			@readonly
+
+			Fired when a player's profile session ends.
+		]=]
 		OnLeave = Signal.new() :: Types.Signal<Player>,
+
+		--[=[
+			@prop OnSessionLoaded Types.Signal<string, T>
+			@within DataVaultServer
+			@readonly
+
+			Fired whenever any session is successfully loaded.
+		]=]
 		OnSessionLoaded = Signal.new() :: Types.Signal<string, T>,
+
+		--[=[
+			@prop OnSessionEnded Types.Signal<string>
+			@within DataVaultServer
+			@readonly
+
+			Fired whenever a session ends.
+		]=]
 		OnSessionEnded = Signal.new() :: Types.Signal<string>,
+
+		--[=[
+			@prop OnMutated Types.Signal<string, T>
+			@within DataVaultServer
+			@readonly
+
+			Fired after a session's data has been mutated.
+		]=]
 		OnMutated = Signal.new() :: Types.Signal<string, T>,
 	}
 
@@ -275,7 +363,15 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 	end
 
 	--[=[
-		Starts a ProfileStore session for an arbitrary key.
+		Loads a ProfileStore session for an arbitrary key.
+
+		If a session for the key is already active, the existing profile
+		is returned instead.
+
+		@within DataVaultServer
+		@param Key string
+		@param Params Types.SessionParams?
+		@return Types.Profile<T>?
 	]=]
 	function Server:LoadSessionAsync(Key: string, Params: Types.SessionParams?): Types.Profile<T>?
 		if Destroyed then
@@ -330,7 +426,15 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 	end
 
 	--[=[
-		Loads the player's session and tags the profile with their UserId (GDPR).
+		Loads a player's ProfileStore session.
+
+		The player's UserId is automatically added to the profile for
+		ProfileStore's GDPR-related user identification.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Params Types.SessionParams?
+		@return Types.Profile<T>?
 	]=]
 	function Server:LoadPlayerAsync(Player: Player, Params: Types.SessionParams?): Types.Profile<T>?
 		if Player.Parent ~= Players then
@@ -368,6 +472,13 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		return Profile
 	end
 
+	--[=[
+		Returns the active profile for a key.
+
+		@within DataVaultServer
+		@param Key string
+		@return Types.Profile<T>?
+	]=]
 	function Server:GetSession(Key: string): Types.Profile<T>?
 		local Profile = Sessions[Key]
 		if Profile and Profile:IsActive() then
@@ -376,10 +487,27 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		return nil
 	end
 
+	--[=[
+		Returns the active profile belonging to a player.
+
+		@within DataVaultServer
+		@param Player Player
+		@return Types.Profile<T>?
+	]=]
 	function Server:GetPlayerSession(Player: Player): Types.Profile<T>?
 		return self:GetSession(PlayerKey(Player))
 	end
 
+	--[=[
+		Returns the live data table for a session.
+
+		The returned table is the actual profile data and should not be
+		modified directly. Use [Server:Mutate] when changing data.
+
+		@within DataVaultServer
+		@param Key string
+		@return T?
+	]=]
 	function Server:GetData(Key: string): T?
 		local Profile = self:GetSession(Key)
 		if Profile then
@@ -388,10 +516,27 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		return nil
 	end
 
+	--[=[
+		Returns the live data table for a player's session.
+
+		@within DataVaultServer
+		@param Player Player
+		@return T?
+	]=]
 	function Server:GetPlayerData(Player: Player): T?
 		return self:GetData(PlayerKey(Player))
 	end
 
+	--[=[
+		Returns a deep copy of a session's data.
+
+		Unlike [Server:GetData], modifying the returned table does not modify
+		the profile.
+
+		@within DataVaultServer
+		@param Key string
+		@return T?
+	]=]
 	function Server:Snapshot(Key: string): T?
 		local Data = self:GetData(Key)
 		if Data == nil then
@@ -400,10 +545,25 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		return Util.DeepCopy(Data)
 	end
 
+	--[=[
+		Returns a deep copy of a player's data.
+
+		@within DataVaultServer
+		@param Player Player
+		@return T?
+	]=]
 	function Server:SnapshotPlayer(Player: Player): T?
 		return self:Snapshot(PlayerKey(Player))
 	end
 
+	--[=[
+		Returns the value stored at a path.
+
+		@within DataVaultServer
+		@param Key string
+		@param Path Types.Path | string
+		@return any
+	]=]
 	function Server:GetAt(Key: string, Path: Types.Path | string): any
 		local Data = self:GetData(Key)
 		if Data == nil then
@@ -412,10 +572,26 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		return Util.GetAt(Data, Util.NormalizePath(Path))
 	end
 
+	--[=[
+		Returns the value stored at a path for a player.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Path Types.Path | string
+		@return any
+	]=]
 	function Server:GetPlayerAt(Player: Player, Path: Types.Path | string): any
 		return self:GetAt(PlayerKey(Player), Path)
 	end
 
+	--[=[
+		Checks whether a path exists in a session's data.
+
+		@within DataVaultServer
+		@param Key string
+		@param Path Types.Path | string
+		@return boolean
+	]=]
 	function Server:HasPath(Key: string, Path: Types.Path | string): boolean
 		local Data = self:GetData(Key)
 		if Data == nil then
@@ -424,18 +600,46 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		return Util.HasAt(Data, Util.NormalizePath(Path))
 	end
 
+	--[=[
+		Checks whether a path exists in a player's data.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Path Types.Path | string
+		@return boolean
+	]=]
 	function Server:HasPlayerPath(Player: Player, Path: Types.Path | string): boolean
 		return self:HasPath(PlayerKey(Player), Path)
 	end
 
+	--[=[
+		Checks whether a session is currently loaded.
+
+		@within DataVaultServer
+		@param Key string
+		@return boolean
+	]=]
 	function Server:IsLoaded(Key: string): boolean
 		return self:GetSession(Key) ~= nil
 	end
 
+	--[=[
+		Checks whether a player's session is currently loaded.
+
+		@within DataVaultServer
+		@param Player Player
+		@return boolean
+	]=]
 	function Server:IsPlayerLoaded(Player: Player): boolean
 		return self:IsLoaded(PlayerKey(Player))
 	end
 
+	--[=[
+		Returns all currently loaded session keys.
+
+		@within DataVaultServer
+		@return {string}
+	]=]
 	function Server:GetLoadedKeys(): { string }
 		local Keys = {}
 		for Key, Profile in Sessions do
@@ -446,6 +650,12 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		return Keys
 	end
 
+	--[=[
+		Returns all players with an active DataVault session.
+
+		@within DataVaultServer
+		@return {Player}
+	]=]
 	function Server:GetLoadedPlayers(): { Player }
 		local List = {}
 		for _, Player in Players:GetPlayers() do
@@ -456,6 +666,12 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		return List
 	end
 
+	--[=[
+		Iterates over every active session.
+
+		@within DataVaultServer
+		@param Visitor (Key: string, Data: T, Profile: Types.Profile<T>) -> ()
+	]=]
 	function Server:ForEachSession(Visitor: (Key: string, Data: T, Profile: Types.Profile<T>) -> ())
 		for Key, Profile in Sessions do
 			if Profile:IsActive() then
@@ -464,6 +680,16 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		end
 	end
 
+	--[=[
+		Waits until a session is loaded.
+
+		If `Timeout` is omitted, this waits indefinitely.
+
+		@within DataVaultServer
+		@param Key string
+		@param Timeout number?
+		@return Types.Profile<T>?
+	]=]
 	function Server:WaitForSession(Key: string, Timeout: number?): Types.Profile<T>?
 		local Existing = self:GetSession(Key)
 		if Existing then
@@ -501,10 +727,28 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		return coroutine.yield()
 	end
 
+	--[=[
+		Waits until a player's session is loaded.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Timeout number?
+		@return Types.Profile<T>?
+	]=]
 	function Server:WaitForPlayer(Player: Player, Timeout: number?): Types.Profile<T>?
 		return self:WaitForSession(PlayerKey(Player), Timeout)
 	end
 
+	--[=[
+		Waits for a player's data to load.
+
+		Returns a failure reason when the profile could not be loaded.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Timeout number?
+		@return T?, Types.LoadFailureReason?
+	]=]
 	function Server:WaitForData(Player: Player, Timeout: number?): (T?, Types.LoadFailureReason?)
 		local Profile = self:WaitForPlayer(Player, Timeout or Options.LoadTimeout or DEFAULT_LOAD_TIMEOUT)
 		if Profile then
@@ -559,33 +803,91 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 	end
 
 	--[=[
-		Edit Profile.Data in place. Several Mutate calls in one frame become one replica.
+		Mutates a session's data and automatically replicates the changes.
+
+		Multiple mutations within the same deferred flush are batched
+		into a single replica.
+
+		@within DataVaultServer
+		@param Key string
+		@param Mutator (Data: T) -> ()
+		@return T?
 	]=]
 	function Server:Mutate(Key: string, Mutator: (Data: T) -> ()): T?
 		return RunMutator(Key, Mutator, false)
 	end
 
+	--[=[
+		Mutates a player's data.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Mutator (Data: T) -> ()
+		@return T?
+	]=]
 	function Server:MutatePlayer(Player: Player, Mutator: (Data: T) -> ()): T?
 		return self:Mutate(PlayerKey(Player), Mutator)
 	end
 
-	-- Same as Mutate, but the next replica is always a full snapshot.
+	--[=[
+		Mutates a session and forces the next replica to be a full snapshot.
+
+		@within DataVaultServer
+		@param Key string
+		@param Mutator (Data: T) -> ()
+		@return T?
+	]=]
 	function Server:Replace(Key: string, Mutator: (Data: T) -> ()): T?
 		return RunMutator(Key, Mutator, true)
 	end
 
+	--[=[
+		Mutates a player's data and forces a full replica.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Mutator (Data: T) -> ()
+		@return T?
+	]=]
 	function Server:ReplacePlayer(Player: Player, Mutator: (Data: T) -> ()): T?
 		return self:Replace(PlayerKey(Player), Mutator)
 	end
 
+	--[=[
+		Alias for [Server:Mutate].
+
+		@within DataVaultServer
+		@param Key string
+		@param Mutator (Data: T) -> ()
+		@return T?
+	]=]
 	function Server:Transaction(Key: string, Mutator: (Data: T) -> ()): T?
 		return self:Mutate(Key, Mutator)
 	end
 
+	--[=[
+		Alias for [Server:MutatePlayer].
+
+		@within DataVaultServer
+		@param Player Player
+		@param Mutator (Data: T) -> ()
+		@return T?
+	]=]
 	function Server:TransactionPlayer(Player: Player, Mutator: (Data: T) -> ()): T?
 		return self:MutatePlayer(Player, Mutator)
 	end
 
+	--[=[
+		Sets a value at a path.
+
+		`Value` is deep-copied before being inserted.
+
+		@within DataVaultServer
+		@param Key string
+		@param Path Types.Path | string
+		@param Value any
+		@return T?
+	]=]
 	function Server:SetPath(Key: string, Path: Types.Path | string, Value: any): T?
 		local Normalized = Util.NormalizePath(Path)
 		return self:Mutate(Key, function(Data)
@@ -593,10 +895,28 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		end)
 	end
 
+	--[=[
+		Sets a value at a path for a player.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Path Types.Path | string
+		@param Value any
+		@return T?
+	]=]
 	function Server:SetPlayerPath(Player: Player, Path: Types.Path | string, Value: any): T?
 		return self:SetPath(PlayerKey(Player), Path, Value)
 	end
 
+	--[=[
+		Updates a value at a path using a callback.
+
+		@within DataVaultServer
+		@param Key string
+		@param Path Types.Path | string
+		@param Updater (Current: any) -> any
+		@return T?
+	]=]
 	function Server:UpdatePath(Key: string, Path: Types.Path | string, Updater: (Current: any) -> any): T?
 		local Normalized = Util.NormalizePath(Path)
 		return self:Mutate(Key, function(Data)
@@ -605,10 +925,30 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		end)
 	end
 
+	--[=[
+		Updates a value at a path for a player.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Path Types.Path | string
+		@param Updater (Current: any) -> any
+		@return T?
+	]=]
 	function Server:UpdatePlayerPath(Player: Player, Path: Types.Path | string, Updater: (Current: any) -> any): T?
 		return self:UpdatePath(PlayerKey(Player), Path, Updater)
 	end
 
+	--[=[
+		Increments a numeric value at a path.
+
+		Non-numeric values are treated as `0`.
+
+		@within DataVaultServer
+		@param Key string
+		@param Path Types.Path | string
+		@param Amount number
+		@return T?
+	]=]
 	function Server:IncrementPath(Key: string, Path: Types.Path | string, Amount: number): T?
 		return self:UpdatePath(Key, Path, function(Current)
 			local Number = if type(Current) == "number" then Current else 0
@@ -616,20 +956,56 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		end)
 	end
 
+	--[=[
+		Increments a numeric value at a path for a player.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Path Types.Path | string
+		@param Amount number
+		@return T?
+	]=]
 	function Server:IncrementPlayerPath(Player: Player, Path: Types.Path | string, Amount: number): T?
 		return self:IncrementPath(PlayerKey(Player), Path, Amount)
 	end
 
+	--[=[
+		Merges a partial table into a session's data.
+
+		@within DataVaultServer
+		@param Key string
+		@param Partial any
+		@return T?
+	]=]
 	function Server:Merge(Key: string, Partial: any): T?
 		return self:Mutate(Key, function(Data)
 			Util.Merge(Data, Partial)
 		end)
 	end
 
+	--[=[
+		Merges a partial table into a player's data.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Partial any
+		@return T?
+	]=]
 	function Server:MergePlayer(Player: Player, Partial: any): T?
 		return self:Merge(PlayerKey(Player), Partial)
 	end
 
+	--[=[
+		Observes changes to a session's data.
+
+		The listener is deferred once immediately if the session is
+		already loaded.
+
+		@within DataVaultServer
+		@param Key string
+		@param Listener (Data: T) -> ()
+		@return Types.Connection
+	]=]
 	function Server:Observe(Key: string, Listener: (Data: T) -> ()): Types.Connection
 		local Connection = ChangedOf(Key):Connect(Listener)
 		local Data = self:GetData(Key)
@@ -639,10 +1015,29 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		return Connection
 	end
 
+	--[=[
+		Observes changes to a player's data.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Listener (Data: T) -> ()
+		@return Types.Connection
+	]=]
 	function Server:ObservePlayer(Player: Player, Listener: (Data: T) -> ()): Types.Connection
 		return self:Observe(PlayerKey(Player), Listener)
 	end
 
+	--[=[
+		Observes changes to a specific path.
+
+		The listener only fires when the value at the path changes.
+
+		@within DataVaultServer
+		@param Key string
+		@param Path Types.Path | string
+		@param Listener (Value: any) -> ()
+		@return Types.Connection
+	]=]
 	function Server:ObservePath(Key: string, Path: Types.Path | string, Listener: (Value: any) -> ()): Types.Connection
 		local Normalized = Util.NormalizePath(Path)
 		local Last = Util.GetAt(self:GetData(Key), Normalized)
@@ -655,10 +1050,25 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		end)
 	end
 
+	--[=[
+		Observes changes to a specific path for a player.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Path Types.Path | string
+		@param Listener (Value: any) -> ()
+		@return Types.Connection
+	]=]
 	function Server:ObservePlayerPath(Player: Player, Path: Types.Path | string, Listener: (Value: any) -> ()): Types.Connection
 		return self:ObservePath(PlayerKey(Player), Path, Listener)
 	end
 
+	--[=[
+		Saves a session immediately.
+
+		@within DataVaultServer
+		@param Key string
+	]=]
 	function Server:Save(Key: string)
 		local Profile = self:GetSession(Key)
 		if not Profile then
@@ -671,10 +1081,24 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		end
 	end
 
+	--[=[
+		Saves a player's session immediately.
+
+		@within DataVaultServer
+		@param Player Player
+	]=]
 	function Server:SavePlayer(Player: Player)
 		self:Save(PlayerKey(Player))
 	end
 
+	--[=[
+		Saves every active session.
+
+		If `ReplicateOnSave` is enabled, full snapshots are also queued
+		for replication.
+
+		@within DataVaultServer
+	]=]
 	function Server:SaveAll()
 		for Key, Profile in Sessions do
 			if Profile:IsActive() then
@@ -689,16 +1113,34 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		end
 	end
 
+	--[=[
+		Sends a complete data snapshot to a player.
+
+		@within DataVaultServer
+		@param Key string
+		@param Target Player?
+	]=]
 	function Server:Replicate(Key: string, Target: Player?)
 		PendingFull[Key] = nil
 		PendingPatches[Key] = nil
 		FireFull(Key, Target)
 	end
 
+	--[=[
+		Sends a complete data snapshot to a player.
+
+		@within DataVaultServer
+		@param Player Player
+	]=]
 	function Server:ReplicatePlayer(Player: Player)
 		self:Replicate(PlayerKey(Player), Player)
 	end
 
+	--[=[
+		Sends complete snapshots for every active session.
+
+		@within DataVaultServer
+	]=]
 	function Server:ReplicateAll()
 		for Key, Profile in Sessions do
 			if Profile:IsActive() then
@@ -707,6 +1149,14 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		end
 	end
 
+	--[=[
+		Flushes queued replication.
+
+		If `Key` is provided, only that session is flushed.
+
+		@within DataVaultServer
+		@param Key string?
+	]=]
 	function Server:Flush(Key: string?)
 		if Key then
 			FlushKey(Key)
@@ -715,6 +1165,12 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		FlushAll()
 	end
 
+	--[=[
+		Ends a session.
+
+		@within DataVaultServer
+		@param Key string
+	]=]
 	function Server:EndSession(Key: string)
 		local Profile = Sessions[Key]
 
@@ -740,10 +1196,24 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		end
 	end
 
+	--[=[
+		Ends a player's session.
+
+		@within DataVaultServer
+		@param Player Player
+	]=]
 	function Server:EndPlayer(Player: Player)
 		self:EndSession(PlayerKey(Player))
 	end
 
+	--[=[
+		Binds DataVault to Roblox's player lifecycle.
+
+		Players already in the server are loaded immediately, while
+		future players are handled through `PlayerAdded`.
+
+		@within DataVaultServer
+	]=]
 	function Server:BindPlayers()
 		if PlayerBound then
 			return
@@ -772,32 +1242,85 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		Players.PlayerRemoving:Connect(OnPlayerRemoving)
 	end
 
+	--[=[
+		Sends a cross-server message to a session.
+
+		@within DataVaultServer
+		@param Key string
+		@param Message Types.JSONAcceptable
+		@return boolean
+	]=]
 	function Server:MessageAsync(Key: string, Message: Types.JSONAcceptable): boolean
 		return Backend:MessageAsync(Key, Message)
 	end
 
+	--[=[
+		Sends a cross-server message to a player's session.
+
+		@within DataVaultServer
+		@param Player Player
+		@param Message Types.JSONAcceptable
+		@return boolean
+	]=]
 	function Server:MessagePlayerAsync(Player: Player, Message: Types.JSONAcceptable): boolean
 		return self:MessageAsync(PlayerKey(Player), Message)
 	end
 
+	--[=[
+		Views a stored profile without starting a session.
+
+		@within DataVaultServer
+		@param Key string
+		@param Version string?
+		@return Types.Profile<T>?
+	]=]
 	function Server:ViewAsync(Key: string, Version: string?): Types.Profile<T>?
 		return Backend:GetAsync(Key, Version) :: Types.Profile<T>?
 	end
 
+	--[=[
+		Removes a profile from the store.
+
+		@within DataVaultServer
+		@param Key string
+		@return boolean
+	]=]
 	function Server:RemoveAsync(Key: string): boolean
 		Sessions[Key] = nil
 		ForgetKey(Key)
 		return Backend:RemoveAsync(Key)
 	end
 
+	--[=[
+		Removes a player's profile from the store.
+
+		@within DataVaultServer
+		@param Player Player
+		@return boolean
+	]=]
 	function Server:RemovePlayerAsync(Player: Player): boolean
 		return self:RemoveAsync(PlayerKey(Player))
 	end
 
+	--[=[
+		Returns the datastore key used for a player.
+
+		@within DataVaultServer
+		@param Player Player
+		@return string
+	]=]
 	function Server:KeyFor(Player: Player): string
 		return PlayerKey(Player)
 	end
 
+	--[=[
+		Destroys the DataVault server.
+
+		Flushes pending replication, ends active sessions, and disconnects
+		internal change observers.
+
+		@within DataVaultServer
+	]=]
 	function Server:Destroy()
 		Destroyed = true
 		self:Flush()
@@ -857,7 +1380,9 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		end
 	end)
 
-	return Server
+	type Server = typeof(Server)
+
+	return Server :: Server
 end
 
 return DataVaultServer

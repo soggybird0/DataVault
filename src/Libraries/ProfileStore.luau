@@ -1,6 +1,5 @@
---[=[
-	Slightly editied for newer practices
-]=]
+-- Slightly editied for newer practices
+-- Only changes were (pairs) and (ipairs) + (--- ---) headers for moonwave docs
 
 --[[
 MAD STUDIO (by loleris)
@@ -184,10 +183,7 @@ local CRITICAL_STATE_EXPIRE = 120 -- (Seconds) Critical state expiration
 
 local MAX_MESSAGE_QUEUE = 1000 -- Max messages saved in a profile that were sent using "ProfileStore:MessageAsync()"
 
------ Dependencies -----
-
--- local Util = require(game.ReplicatedStorage.Shared.Util)
--- local Signal = Util.Signal
+-- Dependencies
 
 local Signal do
 
@@ -311,7 +307,7 @@ local Signal do
 
 end
 
------ Private -----
+-- Private
 
 local ActiveSessionCheck = {} -- {[session_token] = profile, ...}
 local AutoSaveList = {} -- {profile, ...} -- Loaded profile table which will be circularly auto-saved
@@ -941,7 +937,7 @@ local function SaveProfileAsync(profile, is_ending_session, is_overwriting, last
 
 end
 
------ Public -----
+-- Public
 
 --[[
 	Saved profile structure:

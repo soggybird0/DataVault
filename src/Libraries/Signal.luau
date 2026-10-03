@@ -1,8 +1,6 @@
 --!optimize 2
---[=[
-	Tiny yield-safe signal.
-	Same idea/form as stravant/sleitnick, fewer extras.
-]=]
+-- Tiny yield-safe signal.
+-- Same idea/form as stravant/sleitnick, fewer extras.
 
 --// Types
 

@@ -11,14 +11,7 @@
 	by @[soggybird0]
 ]]
 
---// Services
-
-local RunService = game:GetService("RunService")
-
---// Dependencies
-
-local Types = require(script.Types)
-
+--// Types
 export type JSONAcceptable = Types.JSONAcceptable
 export type Config<T> = Types.Config<T>
 export type SessionParams = Types.SessionParams
@@ -30,10 +23,42 @@ export type Path = Types.Path
 export type Signal<T...> = Types.Signal<T...>
 export type Connection = Types.Connection
 
+--// Services
+
+local RunService = game:GetService("RunService")
+
+--// Dependencies
+
+local Types = require(script.Types)
+
 --// Class
 
+--[=[
+	@class DataVault
+
+	DataVault provides typed, replicated player data on top of ProfileStore.
+
+	The package exposes separate server and client APIs depending on
+	the current execution environment.
+
+	@server
+	@client
+]=]
 local DataVault = {}
 
+--[=[
+	Initializes DataVault using the provided configuration.
+
+	On the server, this opens a server-side DataVault instance.
+	On the client, this opens a client-side DataVault instance.
+
+	@param Options Types.Config<T>
+	@return {
+		Version: string,
+		Server: any?,
+		Client: any?,
+	}
+]=]
 function DataVault:Init<T>(Options: Types.Config<T>)
 	return {
 		Version = "1.0.0",

@@ -1,8 +1,6 @@
 --!strict
---[=[
-	Simple small table helpers.
-	I kept these allocation-aware, as client-replication calls them a lot.
-]=]
+-- Simple small table helpers.
+-- I kept these allocation-aware, as client-replication calls them a lot.
 
 --// Variables
 
