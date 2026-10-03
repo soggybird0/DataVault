@@ -1,7 +1,3 @@
----
-sidebar_position: 1
----
-
 # Introduction
 
 **DataVault** is a lightweight, fully typed wrapper around [ProfileStore](https://devforum.roblox.com/t/profilestore-save-your-player-data-easy-datastore-module/3190543) that gives you:
