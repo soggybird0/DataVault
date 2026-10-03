@@ -1,0 +1,1540 @@
+<!doctype html>
+<html lang="en" dir="ltr" class="plugin-moonwave plugin-id-moonwave" data-has-hydrated="false">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="Docusaurus v3.10.1">
+<title data-rh="true">DataVaultServer | DataVault</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://soggybird0.github.io/DataVault/api/DataVaultServer"><meta data-rh="true" property="og:locale" content="en"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docusaurus_tag" content="default"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docsearch:docusaurus_tag" content="default"><meta data-rh="true" property="og:title" content="DataVaultServer | DataVault"><meta data-rh="true" name="description" content="Server-side data/session manager returned by [DataVaultServer.Open].
+
+Manages ProfileStore sessions, data mutations, replication, observations,
+and player binding."><meta data-rh="true" property="og:description" content="Server-side data/session manager returned by [DataVaultServer.Open].
+
+Manages ProfileStore sessions, data mutations, replication, observations,
+and player binding."><link data-rh="true" rel="canonical" href="https://soggybird0.github.io/DataVault/api/DataVaultServer"><link data-rh="true" rel="alternate" href="https://soggybird0.github.io/DataVault/api/DataVaultServer" hreflang="en"><link data-rh="true" rel="alternate" href="https://soggybird0.github.io/DataVault/api/DataVaultServer" hreflang="x-default"><link rel="stylesheet" href="/DataVault/assets/css/styles.3f63b0bb.css">
+<script src="/DataVault/assets/js/runtime~main.4671f8e4.js" defer="defer"></script>
+<script src="/DataVault/assets/js/main.edd25e39.js" defer="defer"></script>
+</head>
+<body>
+<svg style="display: none;"><defs>
+<symbol id="theme-svg-external-link" viewBox="0 0 24 24"><path fill="currentColor" d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light")),document.documentElement.setAttribute("data-theme-choice",t||"system")}(),function(){try{const c=new URLSearchParams(window.location.search).entries();for(var[t,e]of c)if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id="__docusaurus"><div role="region" aria-label="Skip to main content"><a class="skipToContent_fXgn" href="#__docusaurus_skipToContent_fallback">Skip to main content</a></div><nav aria-label="Main" class="theme-layout-navbar navbar navbar--fixed-top"><div class="navbar__inner"><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded="false" class="navbar__toggle clean-btn" type="button"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2" d="M4 7h22M4 15h22M4 23h22"></path></svg></button><a class="navbar__brand" href="/DataVault/"><b class="navbar__title text--truncate">DataVault</b></a><a class="navbar__item navbar__link" href="/DataVault/docs/intro">Docs</a><a aria-current="page" class="navbar__item navbar__link navbar__link--active" href="/DataVault/api/">API</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href="https://github.com/soggybird0/DataVault" target="_blank" rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type="button" disabled="" title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill="currentColor" d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill="currentColor" d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"></path></svg><svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill="currentColor" d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"></path></svg></button></div><div class="navbarSearchContainer_Bca1"><div class="navbar__search"><span aria-label="expand searchbar" role="button" class="search-icon" tabindex="0"></span><input id="search_input_react" type="search" placeholder="Loading..." aria-label="Search" class="navbar__search-input search-bar" disabled=""></div></div></div></div><div role="presentation" class="navbar-sidebar__backdrop"></div></nav><div id="__docusaurus_skipToContent_fallback" class="theme-layout-main main-wrapper mainWrapper_z2l0 docPageContainer_wNNk"><div class="docPage_Dpn1"><div class="docSidebarContainer_o_re"><div class="sidebar_njMd"><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/DataVault/api/DataVault"><span title="​Data​Vault" class="linkLabel_WmDU">​Data​Vault</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link" href="/DataVault/api/DataVaultClient"><span title="​Data​Vault​Client" class="linkLabel_WmDU">​Data​Vault​Client</span></a></li><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-1 menu__list-item"><a class="menu__link menu__link--active" aria-current="page" href="/DataVault/api/DataVaultServer"><span title="​Data​Vault​Server" class="linkLabel_WmDU">​Data​Vault​Server</span></a></li></ul></nav></div></div><main class="docMainContainer_HJE1"><div class="container padding-vert--lg"><div class="row"><div class="col docItemCol_MU3C"><div class="docItemContainer_Wv98"><article><div class="member_J0w1 markdown"><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_oUs_"><button type="button" class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><header><h1 class="docTitle_mZRt" style="text-decoration:none"><span style="display:inline-block">Data</span><span style="display:inline-block">Vault</span><span style="display:inline-block">Server</span></h1><div class="luaClassTags_EipM"></div><div>
+<p>Server-side data/session manager returned by <a href="/DataVault/api/DataVaultServer#Open">DataVaultServer.Open</a>.</p>
+<p>
+  Manages ProfileStore sessions, data mutations, replication, observations,
+  and player binding.
+</p>
+</div></header><h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="types">Types<a href="#types" class="hash-link" aria-label="Direct link to Types" title="Direct link to Types" translate="no">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Server"><code style="text-decoration:none">Server</code><a href="#Server" class="hash-link" aria-label="Direct link to Server" title="Direct link to Server" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L61"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code class="purple_ieR2">type</code> <code>Server<!-- --> = </code> <code class="purple_ieR2">{</code><div class="inset_uKQm"><code>Name<!-- -->: </code><code class="blue_P4bS">string</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>Template<!-- -->: </code><code class="blue_P4bS">T</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>Mock<!-- -->: </code><code class="blue_P4bS">boolean</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>OnJoin<!-- -->: </code><code class="blue_P4bS">Types.Signal</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>OnLeave<!-- -->: </code><code class="blue_P4bS">Types.Signal</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>OnSessionLoaded<!-- -->: </code><code class="blue_P4bS">Types.Signal</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">string</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>OnSessionEnded<!-- -->: </code><code class="blue_P4bS">Types.Signal</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">string</code><code class="op_lSLc">&gt;</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>OnMutated<!-- -->: </code><code class="blue_P4bS">Types.Signal</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">string</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code></div><code class="purple_ieR2">}</code></div><div>
+<p>The object returned by <a href="/DataVault/api/DataVaultServer#Open">DataVaultServer.Open</a>.</p>
+</div><h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="functions">Functions<a href="#functions" class="hash-link" aria-label="Direct link to Functions" title="Direct link to Functions" translate="no">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Open"><code style="text-decoration:none">Open</code><a href="#Open" class="hash-link" aria-label="Direct link to Open" title="Direct link to Open" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L72"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->.</code><code class="green_DgR4">Open</code><code>(</code><code>Options<!-- -->: </code><code class="blue_P4bS">Types.Config</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/DataVault/api/DataVaultServer#Server">Server</a></code></div><div>
+<p>Opens a new DataVault store.</p>
+<p>
+  The returned server object manages ProfileStore sessions,
+  data mutations, replication, observations, and player binding.
+</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="LoadSessionAsync"><code style="text-decoration:none">LoadSessionAsync</code><a href="#LoadSessionAsync" class="hash-link" aria-label="Direct link to LoadSessionAsync" title="Direct link to LoadSessionAsync" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L376"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">LoadSessionAsync</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Params<!-- -->: </code><code class="blue_P4bS">Types.SessionParams?</code></div></div><code>) → </code><code class="blue_P4bS">Types.Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="blue_P4bS">?</code></div><div>
+<p>Loads a ProfileStore session for an arbitrary key.</p>
+<p>
+  If a session for the key is already active, the existing profile
+  is returned instead.
+</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="LoadPlayerAsync"><code style="text-decoration:none">LoadPlayerAsync</code><a href="#LoadPlayerAsync" class="hash-link" aria-label="Direct link to LoadPlayerAsync" title="Direct link to LoadPlayerAsync" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L439"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">LoadPlayerAsync</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Params<!-- -->: </code><code class="blue_P4bS">Types.SessionParams?</code></div></div><code>) → </code><code class="blue_P4bS">Types.Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="blue_P4bS">?</code></div><div>
+<p>Loads a player's ProfileStore session.</p>
+<p>
+  The player's UserId is automatically added to the profile for
+  ProfileStore's GDPR-related user identification.
+</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="GetSession"><code style="text-decoration:none">GetSession</code><a href="#GetSession" class="hash-link" aria-label="Direct link to GetSession" title="Direct link to GetSession" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L482"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">GetSession</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code class="blue_P4bS">Types.Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="blue_P4bS">?</code></div><div>
+<p>Returns the active profile for a key.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="GetPlayerSession"><code style="text-decoration:none">GetPlayerSession</code><a href="#GetPlayerSession" class="hash-link" aria-label="Direct link to GetPlayerSession" title="Direct link to GetPlayerSession" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L497"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">GetPlayerSession</code><code>(</code><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>) → </code><code class="blue_P4bS">Types.Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="blue_P4bS">?</code></div><div>
+<p>Returns the active profile belonging to a player.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="GetData"><code style="text-decoration:none">GetData</code><a href="#GetData" class="hash-link" aria-label="Direct link to GetData" title="Direct link to GetData" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L511"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">GetData</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Returns the live data table for a session.</p>
+<p>
+  The returned table is the actual profile data and should not be
+  modified directly. Use <a href="/DataVault/api/DataVaultServer#Server#Mutate">Server:Mutate</a> when changing data.
+</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="GetPlayerData"><code style="text-decoration:none">GetPlayerData</code><a href="#GetPlayerData" class="hash-link" aria-label="Direct link to GetPlayerData" title="Direct link to GetPlayerData" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L526"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">GetPlayerData</code><code>(</code><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Returns the live data table for a player's session.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Snapshot"><code style="text-decoration:none">Snapshot</code><a href="#Snapshot" class="hash-link" aria-label="Direct link to Snapshot" title="Direct link to Snapshot" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L540"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Snapshot</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Returns a deep copy of a session's data.</p>
+<p>
+  Unlike <a href="/DataVault/api/DataVaultServer#Server#GetData">Server:GetData</a>, modifying the returned table does not modify
+  the profile.
+</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="SnapshotPlayer"><code style="text-decoration:none">SnapshotPlayer</code><a href="#SnapshotPlayer" class="hash-link" aria-label="Direct link to SnapshotPlayer" title="Direct link to SnapshotPlayer" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L555"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">SnapshotPlayer</code><code>(</code><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Returns a deep copy of a player's data.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="GetAt"><code style="text-decoration:none">GetAt</code><a href="#GetAt" class="hash-link" aria-label="Direct link to GetAt" title="Direct link to GetAt" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L567"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">GetAt</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Path<!-- -->: </code><code class="blue_P4bS">Types.Path</code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code></div></div><code>) → </code><code class="blue_P4bS">any</code></div><div>
+<p>Returns the value stored at a path.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="GetPlayerAt"><code style="text-decoration:none">GetPlayerAt</code><a href="#GetPlayerAt" class="hash-link" aria-label="Direct link to GetPlayerAt" title="Direct link to GetPlayerAt" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L583"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">GetPlayerAt</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Path<!-- -->: </code><code class="blue_P4bS">Types.Path</code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code></div></div><code>) → </code><code class="blue_P4bS">any</code></div><div>
+<p>Returns the value stored at a path for a player.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="HasPath"><code style="text-decoration:none">HasPath</code><a href="#HasPath" class="hash-link" aria-label="Direct link to HasPath" title="Direct link to HasPath" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L595"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">HasPath</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Path<!-- -->: </code><code class="blue_P4bS">Types.Path</code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code></div></div><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
+<p>Checks whether a path exists in a session's data.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="HasPlayerPath"><code style="text-decoration:none">HasPlayerPath</code><a href="#HasPlayerPath" class="hash-link" aria-label="Direct link to HasPlayerPath" title="Direct link to HasPlayerPath" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L611"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">HasPlayerPath</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Path<!-- -->: </code><code class="blue_P4bS">Types.Path</code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code></div></div><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
+<p>Checks whether a path exists in a player's data.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="IsLoaded"><code style="text-decoration:none">IsLoaded</code><a href="#IsLoaded" class="hash-link" aria-label="Direct link to IsLoaded" title="Direct link to IsLoaded" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L622"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">IsLoaded</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
+<p>Checks whether a session is currently loaded.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="IsPlayerLoaded"><code style="text-decoration:none">IsPlayerLoaded</code><a href="#IsPlayerLoaded" class="hash-link" aria-label="Direct link to IsPlayerLoaded" title="Direct link to IsPlayerLoaded" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L633"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">IsPlayerLoaded</code><code>(</code><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
+<p>Checks whether a player's session is currently loaded.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="GetLoadedKeys"><code style="text-decoration:none">GetLoadedKeys</code><a href="#GetLoadedKeys" class="hash-link" aria-label="Direct link to GetLoadedKeys" title="Direct link to GetLoadedKeys" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L643"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">GetLoadedKeys</code><code>(</code><code>) → </code><code class="purple_ieR2">{</code><code class="blue_P4bS">string</code><code class="purple_ieR2">}</code></div><div>
+<p>Returns all currently loaded session keys.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="GetLoadedPlayers"><code style="text-decoration:none">GetLoadedPlayers</code><a href="#GetLoadedPlayers" class="hash-link" aria-label="Direct link to GetLoadedPlayers" title="Direct link to GetLoadedPlayers" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L659"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">GetLoadedPlayers</code><code>(</code><code>) → </code><code class="purple_ieR2">{</code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code class="purple_ieR2">}</code></div><div>
+<p>Returns all players with an active DataVault session.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ForEachSession"><code style="text-decoration:none">ForEachSession</code><a href="#ForEachSession" class="hash-link" aria-label="Direct link to ForEachSession" title="Direct link to ForEachSession" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L675"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">ForEachSession</code><code>(</code><code>Visitor<!-- -->: </code><code class="purple_ieR2">(</code><div class="inset_uKQm"><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>Data<!-- -->: </code><code class="blue_P4bS">T</code><code class="purple_ieR2">,</code></div><div class="inset_uKQm"><code>Profile<!-- -->: </code><code class="blue_P4bS">Types.Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code></div><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Iterates over every active session.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="WaitForSession"><code style="text-decoration:none">WaitForSession</code><a href="#WaitForSession" class="hash-link" aria-label="Direct link to WaitForSession" title="Direct link to WaitForSession" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L693"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">WaitForSession</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Timeout<!-- -->: </code><code class="blue_P4bS">number?</code></div></div><code>) → </code><code class="blue_P4bS">Types.Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="blue_P4bS">?</code></div><div>
+<p>Waits until a session is loaded.</p>
+<p>If <code>Timeout</code> is omitted, this waits indefinitely.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="WaitForPlayer"><code style="text-decoration:none">WaitForPlayer</code><a href="#WaitForPlayer" class="hash-link" aria-label="Direct link to WaitForPlayer" title="Direct link to WaitForPlayer" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L738"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">WaitForPlayer</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Timeout<!-- -->: </code><code class="blue_P4bS">number?</code></div></div><code>) → </code><code class="blue_P4bS">Types.Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="blue_P4bS">?</code></div><div>
+<p>Waits until a player's session is loaded.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="WaitForData"><code style="text-decoration:none">WaitForData</code><a href="#WaitForData" class="hash-link" aria-label="Direct link to WaitForData" title="Direct link to WaitForData" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L752"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">WaitForData</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Timeout<!-- -->: </code><code class="blue_P4bS">number?</code></div></div><code>) → </code><code class="blue_P4bS">T?,</code><code class="blue_P4bS">Types.LoadFailureReason?</code></div><div>
+<p>Waits for a player's data to load.</p>
+<p>Returns a failure reason when the profile could not be loaded.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Mutate"><code style="text-decoration:none">Mutate</code><a href="#Mutate" class="hash-link" aria-label="Direct link to Mutate" title="Direct link to Mutate" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L816"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Mutate</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Mutator<!-- -->: </code><code class="purple_ieR2">(</code><code>Data<!-- -->: </code><code class="blue_P4bS">T</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Mutates a session's data and automatically replicates the changes.</p>
+<p>
+  Multiple mutations within the same deferred flush are batched
+  into a single replica.
+</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="MutatePlayer"><code style="text-decoration:none">MutatePlayer</code><a href="#MutatePlayer" class="hash-link" aria-label="Direct link to MutatePlayer" title="Direct link to MutatePlayer" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L828"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">MutatePlayer</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Mutator<!-- -->: </code><code class="purple_ieR2">(</code><code>Data<!-- -->: </code><code class="blue_P4bS">T</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Mutates a player's data.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Replace"><code style="text-decoration:none">Replace</code><a href="#Replace" class="hash-link" aria-label="Direct link to Replace" title="Direct link to Replace" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L840"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Replace</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Mutator<!-- -->: </code><code class="purple_ieR2">(</code><code>Data<!-- -->: </code><code class="blue_P4bS">T</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Mutates a session and forces the next replica to be a full snapshot.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ReplacePlayer"><code style="text-decoration:none">ReplacePlayer</code><a href="#ReplacePlayer" class="hash-link" aria-label="Direct link to ReplacePlayer" title="Direct link to ReplacePlayer" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L852"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">ReplacePlayer</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Mutator<!-- -->: </code><code class="purple_ieR2">(</code><code>Data<!-- -->: </code><code class="blue_P4bS">T</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Mutates a player's data and forces a full replica.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Transaction"><code style="text-decoration:none">Transaction</code><a href="#Transaction" class="hash-link" aria-label="Direct link to Transaction" title="Direct link to Transaction" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L864"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Transaction</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Mutator<!-- -->: </code><code class="purple_ieR2">(</code><code>Data<!-- -->: </code><code class="blue_P4bS">T</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Alias for <a href="/DataVault/api/DataVaultServer#Server#Mutate">Server:Mutate</a>.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="TransactionPlayer"><code style="text-decoration:none">TransactionPlayer</code><a href="#TransactionPlayer" class="hash-link" aria-label="Direct link to TransactionPlayer" title="Direct link to TransactionPlayer" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L876"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">TransactionPlayer</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Mutator<!-- -->: </code><code class="purple_ieR2">(</code><code>Data<!-- -->: </code><code class="blue_P4bS">T</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Alias for <a href="/DataVault/api/DataVaultServer#Server#MutatePlayer">Server:MutatePlayer</a>.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="SetPath"><code style="text-decoration:none">SetPath</code><a href="#SetPath" class="hash-link" aria-label="Direct link to SetPath" title="Direct link to SetPath" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L891"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">SetPath</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Path<!-- -->: </code><code class="blue_P4bS">Types.Path</code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Value<!-- -->: </code><code class="blue_P4bS">any</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Sets a value at a path.</p>
+<p><code>Value</code> is deep-copied before being inserted.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="SetPlayerPath"><code style="text-decoration:none">SetPlayerPath</code><a href="#SetPlayerPath" class="hash-link" aria-label="Direct link to SetPlayerPath" title="Direct link to SetPlayerPath" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L907"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">SetPlayerPath</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Path<!-- -->: </code><code class="blue_P4bS">Types.Path</code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Value<!-- -->: </code><code class="blue_P4bS">any</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Sets a value at a path for a player.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="UpdatePath"><code style="text-decoration:none">UpdatePath</code><a href="#UpdatePath" class="hash-link" aria-label="Direct link to UpdatePath" title="Direct link to UpdatePath" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L920"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">UpdatePath</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Path<!-- -->: </code><code class="blue_P4bS">Types.Path</code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Updater<!-- -->: </code><code class="purple_ieR2">(</code><code>Current<!-- -->: </code><code class="blue_P4bS">any</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="blue_P4bS">any</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Updates a value at a path using a callback.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="UpdatePlayerPath"><code style="text-decoration:none">UpdatePlayerPath</code><a href="#UpdatePlayerPath" class="hash-link" aria-label="Direct link to UpdatePlayerPath" title="Direct link to UpdatePlayerPath" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L937"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">UpdatePlayerPath</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Path<!-- -->: </code><code class="blue_P4bS">Types.Path</code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Updater<!-- -->: </code><code class="purple_ieR2">(</code><code>Current<!-- -->: </code><code class="blue_P4bS">any</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="blue_P4bS">any</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Updates a value at a path for a player.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="IncrementPath"><code style="text-decoration:none">IncrementPath</code><a href="#IncrementPath" class="hash-link" aria-label="Direct link to IncrementPath" title="Direct link to IncrementPath" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L952"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">IncrementPath</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Path<!-- -->: </code><code class="blue_P4bS">Types.Path</code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Amount<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Increments a numeric value at a path.</p>
+<p>Non-numeric values are treated as <code>0</code>.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="IncrementPlayerPath"><code style="text-decoration:none">IncrementPlayerPath</code><a href="#IncrementPlayerPath" class="hash-link" aria-label="Direct link to IncrementPlayerPath" title="Direct link to IncrementPlayerPath" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L968"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">IncrementPlayerPath</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Path<!-- -->: </code><code class="blue_P4bS">Types.Path</code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Amount<!-- -->: </code><code class="blue_P4bS">number</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Increments a numeric value at a path for a player.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Merge"><code style="text-decoration:none">Merge</code><a href="#Merge" class="hash-link" aria-label="Direct link to Merge" title="Direct link to Merge" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L980"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Merge</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Partial<!-- -->: </code><code class="blue_P4bS">any</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Merges a partial table into a session's data.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="MergePlayer"><code style="text-decoration:none">MergePlayer</code><a href="#MergePlayer" class="hash-link" aria-label="Direct link to MergePlayer" title="Direct link to MergePlayer" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L994"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">MergePlayer</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Partial<!-- -->: </code><code class="blue_P4bS">any</code></div></div><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+<p>Merges a partial table into a player's data.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Observe"><code style="text-decoration:none">Observe</code><a href="#Observe" class="hash-link" aria-label="Direct link to Observe" title="Direct link to Observe" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1009"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Observe</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Listener<!-- -->: </code><code class="purple_ieR2">(</code><code>Data<!-- -->: </code><code class="blue_P4bS">T</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code></div></div><code>) → </code><code class="blue_P4bS">Types.Connection</code></div><div>
+<p>Observes changes to a session's data.</p>
+<p>
+  The listener is deferred once immediately if the session is
+  already loaded.
+</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ObservePlayer"><code style="text-decoration:none">ObservePlayer</code><a href="#ObservePlayer" class="hash-link" aria-label="Direct link to ObservePlayer" title="Direct link to ObservePlayer" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1026"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">ObservePlayer</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Listener<!-- -->: </code><code class="purple_ieR2">(</code><code>Data<!-- -->: </code><code class="blue_P4bS">T</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code></div></div><code>) → </code><code class="blue_P4bS">Types.Connection</code></div><div>
+<p>Observes changes to a player's data.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ObservePath"><code style="text-decoration:none">ObservePath</code><a href="#ObservePath" class="hash-link" aria-label="Direct link to ObservePath" title="Direct link to ObservePath" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1041"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">ObservePath</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Path<!-- -->: </code><code class="blue_P4bS">Types.Path</code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Listener<!-- -->: </code><code class="purple_ieR2">(</code><code>Value<!-- -->: </code><code class="blue_P4bS">any</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code></div></div><code>) → </code><code class="blue_P4bS">Types.Connection</code></div><div>
+<p>Observes changes to a specific path.</p>
+<p>The listener only fires when the value at the path changes.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ObservePlayerPath"><code style="text-decoration:none">ObservePlayerPath</code><a href="#ObservePlayerPath" class="hash-link" aria-label="Direct link to ObservePlayerPath" title="Direct link to ObservePlayerPath" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1062"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">ObservePlayerPath</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Path<!-- -->: </code><code class="blue_P4bS">Types.Path</code><code class="op_lSLc"> | </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Listener<!-- -->: </code><code class="purple_ieR2">(</code><code>Value<!-- -->: </code><code class="blue_P4bS">any</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code></div></div><code>) → </code><code class="blue_P4bS">Types.Connection</code></div><div>
+<p>Observes changes to a specific path for a player.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Save"><code style="text-decoration:none">Save</code><a href="#Save" class="hash-link" aria-label="Direct link to Save" title="Direct link to Save" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1072"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Save</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Saves a session immediately.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="SavePlayer"><code style="text-decoration:none">SavePlayer</code><a href="#SavePlayer" class="hash-link" aria-label="Direct link to SavePlayer" title="Direct link to SavePlayer" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1090"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">SavePlayer</code><code>(</code><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Saves a player's session immediately.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="SaveAll"><code style="text-decoration:none">SaveAll</code><a href="#SaveAll" class="hash-link" aria-label="Direct link to SaveAll" title="Direct link to SaveAll" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1102"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">SaveAll</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Saves every active session.</p>
+<p>
+  If <code>ReplicateOnSave</code> is enabled, full snapshots are also queued
+  for replication.
+</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Replicate"><code style="text-decoration:none">Replicate</code><a href="#Replicate" class="hash-link" aria-label="Direct link to Replicate" title="Direct link to Replicate" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1123"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Replicate</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Target<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player?<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code></div></div><code>)  → </code><code>(</code><code>)</code></div><div>
+<p>Sends a complete data snapshot to a player.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ReplicatePlayer"><code style="text-decoration:none">ReplicatePlayer</code><a href="#ReplicatePlayer" class="hash-link" aria-label="Direct link to ReplicatePlayer" title="Direct link to ReplicatePlayer" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1135"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">ReplicatePlayer</code><code>(</code><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Sends a complete data snapshot to a player.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ReplicateAll"><code style="text-decoration:none">ReplicateAll</code><a href="#ReplicateAll" class="hash-link" aria-label="Direct link to ReplicateAll" title="Direct link to ReplicateAll" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1144"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">ReplicateAll</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Sends complete snapshots for every active session.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Flush"><code style="text-decoration:none">Flush</code><a href="#Flush" class="hash-link" aria-label="Direct link to Flush" title="Direct link to Flush" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1160"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Flush</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string?</code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Flushes queued replication.</p>
+<p>If <code>Key</code> is provided, only that session is flushed.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="EndSession"><code style="text-decoration:none">EndSession</code><a href="#EndSession" class="hash-link" aria-label="Direct link to EndSession" title="Direct link to EndSession" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1174"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">EndSession</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Ends a session.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="EndPlayer"><code style="text-decoration:none">EndPlayer</code><a href="#EndPlayer" class="hash-link" aria-label="Direct link to EndPlayer" title="Direct link to EndPlayer" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1205"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">EndPlayer</code><code>(</code><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Ends a player's session.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="BindPlayers"><code style="text-decoration:none">BindPlayers</code><a href="#BindPlayers" class="hash-link" aria-label="Direct link to BindPlayers" title="Direct link to BindPlayers" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1217"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">BindPlayers</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Binds DataVault to Roblox's player lifecycle.</p>
+<p>
+  Players already in the server are loaded immediately, while
+  future players are handled through <code>PlayerAdded</code>.
+</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="MessageAsync"><code style="text-decoration:none">MessageAsync</code><a href="#MessageAsync" class="hash-link" aria-label="Direct link to MessageAsync" title="Direct link to MessageAsync" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1253"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">MessageAsync</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Message<!-- -->: </code><code class="blue_P4bS">Types.JSONAcceptable</code></div></div><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
+<p>Sends a cross-server message to a session.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="MessagePlayerAsync"><code style="text-decoration:none">MessagePlayerAsync</code><a href="#MessagePlayerAsync" class="hash-link" aria-label="Direct link to MessagePlayerAsync" title="Direct link to MessagePlayerAsync" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1265"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">MessagePlayerAsync</code><code>(</code><div class="inset_uKQm"><div><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>,</code></div><div><code>Message<!-- -->: </code><code class="blue_P4bS">Types.JSONAcceptable</code></div></div><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
+<p>Sends a cross-server message to a player's session.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="ViewAsync"><code style="text-decoration:none">ViewAsync</code><a href="#ViewAsync" class="hash-link" aria-label="Direct link to ViewAsync" title="Direct link to ViewAsync" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1277"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">ViewAsync</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Version<!-- -->: </code><code class="blue_P4bS">string?</code></div></div><code>) → </code><code class="blue_P4bS">Types.Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="blue_P4bS">?</code></div><div>
+<p>Views a stored profile without starting a session.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="RemoveAsync"><code style="text-decoration:none">RemoveAsync</code><a href="#RemoveAsync" class="hash-link" aria-label="Direct link to RemoveAsync" title="Direct link to RemoveAsync" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1288"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">RemoveAsync</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
+<p>Removes a profile from the store.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="RemovePlayerAsync"><code style="text-decoration:none">RemovePlayerAsync</code><a href="#RemovePlayerAsync" class="hash-link" aria-label="Direct link to RemovePlayerAsync" title="Direct link to RemovePlayerAsync" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1301"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">RemovePlayerAsync</code><code>(</code><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
+<p>Removes a player's profile from the store.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="KeyFor"><code style="text-decoration:none">KeyFor</code><a href="#KeyFor" class="hash-link" aria-label="Direct link to KeyFor" title="Direct link to KeyFor" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1312"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">KeyFor</code><code>(</code><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>) → </code><code class="blue_P4bS">string</code></div><div>
+<p>Returns the datastore key used for a player.</p>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Destroy"><code style="text-decoration:none">Destroy</code><a href="#Destroy" class="hash-link" aria-label="Direct link to Destroy" title="Direct link to Destroy" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L1324"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Destroy</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
+<p>Destroys the DataVault server.</p>
+<p>
+  Flushes pending replication, ends active sessions, and disconnects
+  internal change observers.
+</p>
+</div></div></article></div><details><summary>Show raw api</summary><pre style="max-width:100%;white-space:pre-wrap">{
+    &quot;functions&quot;: [
+        {
+            &quot;name&quot;: &quot;Open&quot;,
+            &quot;desc&quot;: &quot;Opens a new DataVault store.\n\nThe returned server object manages ProfileStore sessions,\ndata mutations, replication, observations, and player binding.&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Options&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Config&lt;T&gt;&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Server&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;static&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 72,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;LoadSessionAsync&quot;,
+            &quot;desc&quot;: &quot;Loads a ProfileStore session for an arbitrary key.\n\nIf a session for the key is already active, the existing profile\nis returned instead.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Params&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.SessionParams?&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Profile&lt;T&gt;?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 376,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;LoadPlayerAsync&quot;,
+            &quot;desc&quot;: &quot;Loads a player&#x27;s ProfileStore session.\n\nThe player&#x27;s UserId is automatically added to the profile for\nProfileStore&#x27;s GDPR-related user identification.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Params&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.SessionParams?&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Profile&lt;T&gt;?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 439,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;GetSession&quot;,
+            &quot;desc&quot;: &quot;Returns the active profile for a key.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Profile&lt;T&gt;?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 482,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;GetPlayerSession&quot;,
+            &quot;desc&quot;: &quot;Returns the active profile belonging to a player.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Profile&lt;T&gt;?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 497,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;GetData&quot;,
+            &quot;desc&quot;: &quot;Returns the live data table for a session.\n\nThe returned table is the actual profile data and should not be\nmodified directly. Use [Server:Mutate] when changing data.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 511,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;GetPlayerData&quot;,
+            &quot;desc&quot;: &quot;Returns the live data table for a player&#x27;s session.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 526,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Snapshot&quot;,
+            &quot;desc&quot;: &quot;Returns a deep copy of a session&#x27;s data.\n\nUnlike [Server:GetData], modifying the returned table does not modify\nthe profile.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 540,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;SnapshotPlayer&quot;,
+            &quot;desc&quot;: &quot;Returns a deep copy of a player&#x27;s data.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 555,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;GetAt&quot;,
+            &quot;desc&quot;: &quot;Returns the value stored at a path.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Path&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Path | string&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;any&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 567,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;GetPlayerAt&quot;,
+            &quot;desc&quot;: &quot;Returns the value stored at a path for a player.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Path&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Path | string&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;any&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 583,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;HasPath&quot;,
+            &quot;desc&quot;: &quot;Checks whether a path exists in a session&#x27;s data.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Path&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Path | string&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 595,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;HasPlayerPath&quot;,
+            &quot;desc&quot;: &quot;Checks whether a path exists in a player&#x27;s data.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Path&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Path | string&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 611,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;IsLoaded&quot;,
+            &quot;desc&quot;: &quot;Checks whether a session is currently loaded.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 622,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;IsPlayerLoaded&quot;,
+            &quot;desc&quot;: &quot;Checks whether a player&#x27;s session is currently loaded.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 633,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;GetLoadedKeys&quot;,
+            &quot;desc&quot;: &quot;Returns all currently loaded session keys.\n\n\t&quot;,
+            &quot;params&quot;: [],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;{string}&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 643,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;GetLoadedPlayers&quot;,
+            &quot;desc&quot;: &quot;Returns all players with an active DataVault session.\n\n\t&quot;,
+            &quot;params&quot;: [],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;{Player}&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 659,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;ForEachSession&quot;,
+            &quot;desc&quot;: &quot;Iterates over every active session.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Visitor&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(Key: string, Data: T, Profile: Types.Profile&lt;T&gt;) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 675,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;WaitForSession&quot;,
+            &quot;desc&quot;: &quot;Waits until a session is loaded.\n\nIf `Timeout` is omitted, this waits indefinitely.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Timeout&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number?&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Profile&lt;T&gt;?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 693,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;WaitForPlayer&quot;,
+            &quot;desc&quot;: &quot;Waits until a player&#x27;s session is loaded.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Timeout&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number?&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Profile&lt;T&gt;?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 738,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;WaitForData&quot;,
+            &quot;desc&quot;: &quot;Waits for a player&#x27;s data to load.\n\nReturns a failure reason when the profile could not be loaded.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Timeout&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number?&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?, Types.LoadFailureReason?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 752,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Mutate&quot;,
+            &quot;desc&quot;: &quot;Mutates a session&#x27;s data and automatically replicates the changes.\n\nMultiple mutations within the same deferred flush are batched\ninto a single replica.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Mutator&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(Data: T) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 816,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;MutatePlayer&quot;,
+            &quot;desc&quot;: &quot;Mutates a player&#x27;s data.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Mutator&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(Data: T) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 828,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Replace&quot;,
+            &quot;desc&quot;: &quot;Mutates a session and forces the next replica to be a full snapshot.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Mutator&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(Data: T) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 840,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;ReplacePlayer&quot;,
+            &quot;desc&quot;: &quot;Mutates a player&#x27;s data and forces a full replica.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Mutator&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(Data: T) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 852,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Transaction&quot;,
+            &quot;desc&quot;: &quot;Alias for [Server:Mutate].\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Mutator&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(Data: T) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 864,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;TransactionPlayer&quot;,
+            &quot;desc&quot;: &quot;Alias for [Server:MutatePlayer].\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Mutator&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(Data: T) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 876,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;SetPath&quot;,
+            &quot;desc&quot;: &quot;Sets a value at a path.\n\n`Value` is deep-copied before being inserted.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Path&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Path | string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Value&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;any&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 891,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;SetPlayerPath&quot;,
+            &quot;desc&quot;: &quot;Sets a value at a path for a player.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Path&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Path | string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Value&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;any&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 907,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;UpdatePath&quot;,
+            &quot;desc&quot;: &quot;Updates a value at a path using a callback.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Path&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Path | string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Updater&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(Current: any) -&gt; any&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 920,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;UpdatePlayerPath&quot;,
+            &quot;desc&quot;: &quot;Updates a value at a path for a player.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Path&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Path | string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Updater&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(Current: any) -&gt; any&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 937,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;IncrementPath&quot;,
+            &quot;desc&quot;: &quot;Increments a numeric value at a path.\n\nNon-numeric values are treated as `0`.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Path&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Path | string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Amount&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 952,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;IncrementPlayerPath&quot;,
+            &quot;desc&quot;: &quot;Increments a numeric value at a path for a player.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Path&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Path | string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Amount&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;number&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 968,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Merge&quot;,
+            &quot;desc&quot;: &quot;Merges a partial table into a session&#x27;s data.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Partial&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;any&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 980,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;MergePlayer&quot;,
+            &quot;desc&quot;: &quot;Merges a partial table into a player&#x27;s data.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Partial&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;any&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;T?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 994,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Observe&quot;,
+            &quot;desc&quot;: &quot;Observes changes to a session&#x27;s data.\n\nThe listener is deferred once immediately if the session is\nalready loaded.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Listener&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(Data: T) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Connection&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1009,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;ObservePlayer&quot;,
+            &quot;desc&quot;: &quot;Observes changes to a player&#x27;s data.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Listener&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(Data: T) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Connection&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1026,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;ObservePath&quot;,
+            &quot;desc&quot;: &quot;Observes changes to a specific path.\n\nThe listener only fires when the value at the path changes.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Path&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Path | string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Listener&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(Value: any) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Connection&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1041,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;ObservePlayerPath&quot;,
+            &quot;desc&quot;: &quot;Observes changes to a specific path for a player.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Path&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Path | string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Listener&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;(Value: any) -&gt; ()&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Connection&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1062,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Save&quot;,
+            &quot;desc&quot;: &quot;Saves a session immediately.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1072,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;SavePlayer&quot;,
+            &quot;desc&quot;: &quot;Saves a player&#x27;s session immediately.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1090,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;SaveAll&quot;,
+            &quot;desc&quot;: &quot;Saves every active session.\n\nIf `ReplicateOnSave` is enabled, full snapshots are also queued\nfor replication.\n\n\t&quot;,
+            &quot;params&quot;: [],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1102,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Replicate&quot;,
+            &quot;desc&quot;: &quot;Sends a complete data snapshot to a player.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Target&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player?&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1123,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;ReplicatePlayer&quot;,
+            &quot;desc&quot;: &quot;Sends a complete data snapshot to a player.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1135,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;ReplicateAll&quot;,
+            &quot;desc&quot;: &quot;Sends complete snapshots for every active session.\n\n\t&quot;,
+            &quot;params&quot;: [],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1144,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Flush&quot;,
+            &quot;desc&quot;: &quot;Flushes queued replication.\n\nIf `Key` is provided, only that session is flushed.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string?&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1160,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;EndSession&quot;,
+            &quot;desc&quot;: &quot;Ends a session.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1174,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;EndPlayer&quot;,
+            &quot;desc&quot;: &quot;Ends a player&#x27;s session.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                }
+            ],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1205,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;BindPlayers&quot;,
+            &quot;desc&quot;: &quot;Binds DataVault to Roblox&#x27;s player lifecycle.\n\nPlayers already in the server are loaded immediately, while\nfuture players are handled through `PlayerAdded`.\n\n\t&quot;,
+            &quot;params&quot;: [],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1217,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;MessageAsync&quot;,
+            &quot;desc&quot;: &quot;Sends a cross-server message to a session.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Message&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.JSONAcceptable&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1253,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;MessagePlayerAsync&quot;,
+            &quot;desc&quot;: &quot;Sends a cross-server message to a player&#x27;s session.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Message&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.JSONAcceptable&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1265,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;ViewAsync&quot;,
+            &quot;desc&quot;: &quot;Views a stored profile without starting a session.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                },
+                {
+                    &quot;name&quot;: &quot;Version&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string?&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Types.Profile&lt;T&gt;?&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1277,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;RemoveAsync&quot;,
+            &quot;desc&quot;: &quot;Removes a profile from the store.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Key&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1288,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;RemovePlayerAsync&quot;,
+            &quot;desc&quot;: &quot;Removes a player&#x27;s profile from the store.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;boolean&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1301,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;KeyFor&quot;,
+            &quot;desc&quot;: &quot;Returns the datastore key used for a player.\n\n\t&quot;,
+            &quot;params&quot;: [
+                {
+                    &quot;name&quot;: &quot;Player&quot;,
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;Player&quot;
+                }
+            ],
+            &quot;returns&quot;: [
+                {
+                    &quot;desc&quot;: &quot;&quot;,
+                    &quot;lua_type&quot;: &quot;string&quot;
+                }
+            ],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1312,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        },
+        {
+            &quot;name&quot;: &quot;Destroy&quot;,
+            &quot;desc&quot;: &quot;Destroys the DataVault server.\n\nFlushes pending replication, ends active sessions, and disconnects\ninternal change observers.\n\n\t&quot;,
+            &quot;params&quot;: [],
+            &quot;returns&quot;: [],
+            &quot;function_type&quot;: &quot;method&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 1324,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        }
+    ],
+    &quot;properties&quot;: [],
+    &quot;types&quot;: [
+        {
+            &quot;name&quot;: &quot;Server&quot;,
+            &quot;desc&quot;: &quot;The object returned by [DataVaultServer.Open].&quot;,
+            &quot;lua_type&quot;: &quot;{ Name: string, Template: T, Mock: boolean, OnJoin: Types.Signal&lt;Player, T&gt;, OnLeave: Types.Signal&lt;Player&gt;, OnSessionLoaded: Types.Signal&lt;string, T&gt;, OnSessionEnded: Types.Signal&lt;string&gt;, OnMutated: Types.Signal&lt;string, T&gt; }&quot;,
+            &quot;source&quot;: {
+                &quot;line&quot;: 61,
+                &quot;path&quot;: &quot;src/Server.luau&quot;
+            }
+        }
+    ],
+    &quot;name&quot;: &quot;DataVaultServer&quot;,
+    &quot;desc&quot;: &quot;Server-side data/session manager returned by [DataVaultServer.Open].\n\nManages ProfileStore sessions, data mutations, replication, observations,\nand player binding.&quot;,
+    &quot;source&quot;: {
+        &quot;line&quot;: 53,
+        &quot;path&quot;: &quot;src/Server.luau&quot;
+    }
+}</pre></details></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#types" class="table-of-contents__link toc-highlight">Types</a><ul><li><a href="#Server" class="table-of-contents__link toc-highlight">Server</a></li></ul></li><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#BindPlayers" class="table-of-contents__link toc-highlight">:BindPlayers</a></li><li><a href="#Destroy" class="table-of-contents__link toc-highlight">:Destroy</a></li><li><a href="#EndPlayer" class="table-of-contents__link toc-highlight">:EndPlayer</a></li><li><a href="#EndSession" class="table-of-contents__link toc-highlight">:EndSession</a></li><li><a href="#Flush" class="table-of-contents__link toc-highlight">:Flush</a></li><li><a href="#ForEachSession" class="table-of-contents__link toc-highlight">:ForEachSession</a></li><li><a href="#GetAt" class="table-of-contents__link toc-highlight">:GetAt</a></li><li><a href="#GetData" class="table-of-contents__link toc-highlight">:GetData</a></li><li><a href="#GetLoadedKeys" class="table-of-contents__link toc-highlight">:GetLoadedKeys</a></li><li><a href="#GetLoadedPlayers" class="table-of-contents__link toc-highlight">:GetLoadedPlayers</a></li><li><a href="#GetPlayerAt" class="table-of-contents__link toc-highlight">:GetPlayerAt</a></li><li><a href="#GetPlayerData" class="table-of-contents__link toc-highlight">:GetPlayerData</a></li><li><a href="#GetPlayerSession" class="table-of-contents__link toc-highlight">:GetPlayerSession</a></li><li><a href="#GetSession" class="table-of-contents__link toc-highlight">:GetSession</a></li><li><a href="#HasPath" class="table-of-contents__link toc-highlight">:HasPath</a></li><li><a href="#HasPlayerPath" class="table-of-contents__link toc-highlight">:HasPlayerPath</a></li><li><a href="#IncrementPath" class="table-of-contents__link toc-highlight">:IncrementPath</a></li><li><a href="#IncrementPlayerPath" class="table-of-contents__link toc-highlight">:IncrementPlayerPath</a></li><li><a href="#IsLoaded" class="table-of-contents__link toc-highlight">:IsLoaded</a></li><li><a href="#IsPlayerLoaded" class="table-of-contents__link toc-highlight">:IsPlayerLoaded</a></li><li><a href="#KeyFor" class="table-of-contents__link toc-highlight">:KeyFor</a></li><li><a href="#LoadPlayerAsync" class="table-of-contents__link toc-highlight">:LoadPlayerAsync</a></li><li><a href="#LoadSessionAsync" class="table-of-contents__link toc-highlight">:LoadSessionAsync</a></li><li><a href="#Merge" class="table-of-contents__link toc-highlight">:Merge</a></li><li><a href="#MergePlayer" class="table-of-contents__link toc-highlight">:MergePlayer</a></li><li><a href="#MessageAsync" class="table-of-contents__link toc-highlight">:MessageAsync</a></li><li><a href="#MessagePlayerAsync" class="table-of-contents__link toc-highlight">:MessagePlayerAsync</a></li><li><a href="#Mutate" class="table-of-contents__link toc-highlight">:Mutate</a></li><li><a href="#MutatePlayer" class="table-of-contents__link toc-highlight">:MutatePlayer</a></li><li><a href="#Observe" class="table-of-contents__link toc-highlight">:Observe</a></li><li><a href="#ObservePath" class="table-of-contents__link toc-highlight">:ObservePath</a></li><li><a href="#ObservePlayer" class="table-of-contents__link toc-highlight">:ObservePlayer</a></li><li><a href="#ObservePlayerPath" class="table-of-contents__link toc-highlight">:ObservePlayerPath</a></li><li><a href="#RemoveAsync" class="table-of-contents__link toc-highlight">:RemoveAsync</a></li><li><a href="#RemovePlayerAsync" class="table-of-contents__link toc-highlight">:RemovePlayerAsync</a></li><li><a href="#Replace" class="table-of-contents__link toc-highlight">:Replace</a></li><li><a href="#ReplacePlayer" class="table-of-contents__link toc-highlight">:ReplacePlayer</a></li><li><a href="#Replicate" class="table-of-contents__link toc-highlight">:Replicate</a></li><li><a href="#ReplicateAll" class="table-of-contents__link toc-highlight">:ReplicateAll</a></li><li><a href="#ReplicatePlayer" class="table-of-contents__link toc-highlight">:ReplicatePlayer</a></li><li><a href="#Save" class="table-of-contents__link toc-highlight">:Save</a></li><li><a href="#SaveAll" class="table-of-contents__link toc-highlight">:SaveAll</a></li><li><a href="#SavePlayer" class="table-of-contents__link toc-highlight">:SavePlayer</a></li><li><a href="#SetPath" class="table-of-contents__link toc-highlight">:SetPath</a></li><li><a href="#SetPlayerPath" class="table-of-contents__link toc-highlight">:SetPlayerPath</a></li><li><a href="#Snapshot" class="table-of-contents__link toc-highlight">:Snapshot</a></li><li><a href="#SnapshotPlayer" class="table-of-contents__link toc-highlight">:SnapshotPlayer</a></li><li><a href="#Transaction" class="table-of-contents__link toc-highlight">:Transaction</a></li><li><a href="#TransactionPlayer" class="table-of-contents__link toc-highlight">:TransactionPlayer</a></li><li><a href="#UpdatePath" class="table-of-contents__link toc-highlight">:UpdatePath</a></li><li><a href="#UpdatePlayerPath" class="table-of-contents__link toc-highlight">:UpdatePlayerPath</a></li><li><a href="#ViewAsync" class="table-of-contents__link toc-highlight">:ViewAsync</a></li><li><a href="#WaitForData" class="table-of-contents__link toc-highlight">:WaitForData</a></li><li><a href="#WaitForPlayer" class="table-of-contents__link toc-highlight">:WaitForPlayer</a></li><li><a href="#WaitForSession" class="table-of-contents__link toc-highlight">:WaitForSession</a></li><li><a href="#Open" class="table-of-contents__link toc-highlight">.Open</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 soggybird0. Built with Moonwave and Docusaurus.</div></div></div></footer></div>
+</body>
+</html>

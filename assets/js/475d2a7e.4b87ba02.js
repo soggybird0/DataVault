@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkdocs=self.webpackChunkdocs||[]).push([[572],{4410:s=>{s.exports=JSON.parse('{"sourceUrl":"https://github.com/soggybird0/DataVault/blob/master","baseUrl":"/DataVault/","classOrder":[],"apiCategories":[]}')}}]);
