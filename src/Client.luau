@@ -13,7 +13,7 @@
 	type MyData = typeof(Template)
 	local Client = SharedVault.Client
 	Client:Wait()
-	local S: DataVault.State<MyData> = Client:Explicit()
+	local S = Client:Explicit()
 	print(S.Coins.Get())
 	```
 
