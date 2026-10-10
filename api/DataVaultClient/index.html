@@ -8,34 +8,14 @@ writes error (mutate on the server only).
 
 :::danger Type solver required for typed State
 **Typed `State&lt;T&gt;` / `Access&lt;T&gt;` requires the new Luau type solver.**
-
-```lua
-local Client = SharedVault.Client
-Client:Wait()
-
-local S = Client:Explicit()
-print(S.Coins.Get())
-```
-
-Enable `Workspace.UseNewLuauTypeSolver = Enabled` or typed fields for :Explicit() will not autocomplete.
 :::"><meta data-rh="true" property="og:description" content="Client replica of a DataVault store. Same State surface as the server, but
 writes error (mutate on the server only).
 
 :::danger Type solver required for typed State
 **Typed `State&lt;T&gt;` / `Access&lt;T&gt;` requires the new Luau type solver.**
-
-```lua
-local Client = SharedVault.Client
-Client:Wait()
-
-local S = Client:Explicit()
-print(S.Coins.Get())
-```
-
-Enable `Workspace.UseNewLuauTypeSolver = Enabled` or typed fields for :Explicit() will not autocomplete.
 :::"><link data-rh="true" rel="canonical" href="https://soggybird0.github.io/DataVault/api/DataVaultClient"><link data-rh="true" rel="alternate" href="https://soggybird0.github.io/DataVault/api/DataVaultClient" hreflang="en"><link data-rh="true" rel="alternate" href="https://soggybird0.github.io/DataVault/api/DataVaultClient" hreflang="x-default"><link rel="stylesheet" href="/DataVault/assets/css/styles.3f63b0bb.css">
-<script src="/DataVault/assets/js/runtime~main.eac8bfd7.js" defer="defer"></script>
-<script src="/DataVault/assets/js/main.d710f17e.js" defer="defer"></script>
+<script src="/DataVault/assets/js/runtime~main.d69bd0f6.js" defer="defer"></script>
+<script src="/DataVault/assets/js/main.7200f902.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -46,30 +26,43 @@ Enable `Workspace.UseNewLuauTypeSolver = Enabled` or typed fields for :Explicit(
   Client replica of a DataVault store. Same State surface as the server, but
   writes error (mutate on the server only).
 </p>
-<p>
-  :::danger Type solver required for typed State
-  <strong>Typed <code>State&#x3C;T></code> / <code>Access&#x3C;T></code> requires the new Luau type solver.</strong>
-</p>
-<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> Client <span class="token operator">=</span> SharedVault<span class="token punctuation">.</span>Client
-Client<span class="token punctuation">:</span><span class="token function">Wait</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-<span class="token keyword">local</span> S <span class="token operator">=</span> Client<span class="token punctuation">:</span><span class="token function">Explicit</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token function">print</span><span class="token punctuation">(</span>S<span class="token punctuation">.</span>Coins<span class="token punctuation">.</span><span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
-</code></pre>
-<p>
-  Enable <code>Workspace.UseNewLuauTypeSolver = Enabled</code> or typed fields for :Explicit() will not autocomplete.
-  :::
-</p>
-</div></header><h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="functions">Functions<a href="#functions" class="hash-link" aria-label="Direct link to Functions" title="Direct link to Functions" translate="no">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Open"><code style="text-decoration:none">Open</code><a href="#Open" class="hash-link" aria-label="Direct link to Open" title="Direct link to Open" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L164"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->.</code><code class="green_DgR4">Open</code><code>(</code><code>Options<!-- -->: </code><code class="blue_P4bS">Types.Config</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/DataVault/api/DataVaultClient">DataVaultClient</a></code></div><div>
+  
+    
+    
+      <div class="admonition admonition-danger alert alert--danger">
+        <div class="admonition-heading">
+          <h5><span class="admonition-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16">
+                <path d="M5.05.31c.81 2.17.41 3.38-.52 4.31C3.55 5.67 1.98 6.45.9 7.98c-1.45 2.05-1.7 6.53 3.53 7.7-2.2-1.16-2.67-4.52-.3-6.61-.61 2.03.53 3.33 1.94 2.86 1.39-.47 2.3.53 2.27 1.67-.02.78-.31 1.44-1.13 1.81 3.42-.59 4.78-3.42 4.78-5.56 0-2.84-2.53-3.22-1.25-5.61-1.52.13-2.03 1.13-1.89 2.75.09 1.08-1.02 1.8-1.86 1.33-.67-.41-.66-1.19-.06-1.78C8.18 5.31 8.68 2.45 5.05.32L5.03.3l.02.01z"></path>
+              </svg></span><span class="admonition-title">Type solver required for typed State</span></h5>
+        </div>
+        <div class="admonition-content">
+          <p><strong>Typed <code>State&#x3C;T></code> / <code>Access&#x3C;T></code> requires the new Luau type solver.</strong></p>
+        </div>
+      </div>
+    
+  
+
+</div></header><h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="functions">Functions<a href="#functions" class="hash-link" aria-label="Direct link to Functions" title="Direct link to Functions" translate="no">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Open"><code style="text-decoration:none">Open</code><a href="#Open" class="hash-link" aria-label="Direct link to Open" title="Direct link to Open" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L150"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->.</code><code class="green_DgR4">Open</code><code>(</code><code>Options<!-- -->: </code><code class="blue_P4bS">Types.Config</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/DataVault/api/DataVaultClient">DataVaultClient</a></code></div><div>
 <p>Opens (or returns) the client replica for Options.StoreName.</p>
-<p>
-  :::danger Type solver required
-  <strong>Typed State requires the new Luau type solver.</strong> Annotate after load:
-</p>
-<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> S<span class="token punctuation">:</span> DataVault<span class="token punctuation">.</span>State<span class="token operator">&#x3C;</span>MyData<span class="token operator">></span> <span class="token operator">=</span> Client<span class="token punctuation">:</span><span class="token function">Explicit</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-</code></pre>
-<p>:::</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Explicit"><code style="text-decoration:none">Explicit</code><a href="#Explicit" class="hash-link" aria-label="Direct link to Explicit" title="Direct link to Explicit" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L234"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->:</code><code class="green_DgR4">Explicit</code><code>(</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/DataVault/api/State">State</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code></div><div>
+
+  
+    
+    
+      <div class="admonition admonition-danger alert alert--danger">
+        <div class="admonition-heading">
+          <h5><span class="admonition-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16">
+                <path d="M5.05.31c.81 2.17.41 3.38-.52 4.31C3.55 5.67 1.98 6.45.9 7.98c-1.45 2.05-1.7 6.53 3.53 7.7-2.2-1.16-2.67-4.52-.3-6.61-.61 2.03.53 3.33 1.94 2.86 1.39-.47 2.3.53 2.27 1.67-.02.78-.31 1.44-1.13 1.81 3.42-.59 4.78-3.42 4.78-5.56 0-2.84-2.53-3.22-1.25-5.61-1.52.13-2.03 1.13-1.89 2.75.09 1.08-1.02 1.8-1.86 1.33-.67-.41-.66-1.19-.06-1.78C8.18 5.31 8.68 2.45 5.05.32L5.03.3l.02.01z"></path>
+              </svg></span><span class="admonition-title">Type solver required</span></h5>
+        </div>
+        <div class="admonition-content">
+          <p><strong>Typed State requires the new Luau type solver.</strong> Annotate after load.</p>
+        </div>
+      </div>
+    
+  
+
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Explicit"><code style="text-decoration:none">Explicit</code><a href="#Explicit" class="hash-link" aria-label="Direct link to Explicit" title="Direct link to Explicit" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L220"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->:</code><code class="green_DgR4">Explicit</code><code>(</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/DataVault/api/State">State</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code></div><div>
 <p>Typed state tree for the local replica.</p>
 
   
@@ -88,21 +81,21 @@ Client<span class="token punctuation">:</span><span class="token function">Wait<
     
   
 
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Get"><code style="text-decoration:none">Get</code><a href="#Get" class="hash-link" aria-label="Direct link to Get" title="Direct link to Get" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L245"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->:</code><code class="green_DgR4">Get</code><code>(</code><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Get"><code style="text-decoration:none">Get</code><a href="#Get" class="hash-link" aria-label="Direct link to Get" title="Direct link to Get" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L231"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->:</code><code class="green_DgR4">Get</code><code>(</code><code>) → </code><code class="blue_P4bS">T?</code></div><div>
 <p>Current replicated data (read-only when ClientGuard is on).</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="IsReady"><code style="text-decoration:none">IsReady</code><a href="#IsReady" class="hash-link" aria-label="Direct link to IsReady" title="Direct link to IsReady" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L255"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->:</code><code class="green_DgR4">IsReady</code><code>(</code><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="IsReady"><code style="text-decoration:none">IsReady</code><a href="#IsReady" class="hash-link" aria-label="Direct link to IsReady" title="Direct link to IsReady" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L241"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->:</code><code class="green_DgR4">IsReady</code><code>(</code><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
 <p>Whether the initial full replica has arrived.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Wait"><code style="text-decoration:none">Wait</code><a href="#Wait" class="hash-link" aria-label="Direct link to Wait" title="Direct link to Wait" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L266"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->:</code><code class="green_DgR4">Wait</code><code>(</code><code>Timeout<!-- -->: </code><code class="blue_P4bS">number?</code><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Wait"><code style="text-decoration:none">Wait</code><a href="#Wait" class="hash-link" aria-label="Direct link to Wait" title="Direct link to Wait" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L252"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->:</code><code class="green_DgR4">Wait</code><code>(</code><code>Timeout<!-- -->: </code><code class="blue_P4bS">number?</code><code>) → </code><code class="blue_P4bS">T?</code></div><div>
 <p>Yields until data is ready (or timeout → nil).</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="RequestSync"><code style="text-decoration:none">RequestSync</code><a href="#RequestSync" class="hash-link" aria-label="Direct link to RequestSync" title="Direct link to RequestSync" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L298"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->:</code><code class="green_DgR4">RequestSync</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="RequestSync"><code style="text-decoration:none">RequestSync</code><a href="#RequestSync" class="hash-link" aria-label="Direct link to RequestSync" title="Direct link to RequestSync" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L284"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->:</code><code class="green_DgR4">RequestSync</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
 <p>Requests a full sync from the server (usually automatic).</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Observe"><code style="text-decoration:none">Observe</code><a href="#Observe" class="hash-link" aria-label="Direct link to Observe" title="Direct link to Observe" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L309"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->:</code><code class="green_DgR4">Observe</code><code>(</code><code>Listener<!-- -->: </code><code class="purple_ieR2">(</code><code>Data<!-- -->: </code><code class="blue_P4bS">T</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code><code>) → </code><code class="blue_P4bS">Connection</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Observe"><code style="text-decoration:none">Observe</code><a href="#Observe" class="hash-link" aria-label="Direct link to Observe" title="Direct link to Observe" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Client.luau#L295"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultClient<!-- -->:</code><code class="green_DgR4">Observe</code><code>(</code><code>Listener<!-- -->: </code><code class="purple_ieR2">(</code><code>Data<!-- -->: </code><code class="blue_P4bS">T</code><code class="purple_ieR2">)</code><code class="purple_ieR2"> → </code><code class="purple_ieR2">(</code><code class="purple_ieR2">)</code><code>) → </code><code class="blue_P4bS">Connection</code></div><div>
 <p>Observes the full replica root.</p>
 </div></div></article></div><details><summary>Show raw api</summary><pre style="max-width:100%;white-space:pre-wrap">{
     &quot;functions&quot;: [
         {
             &quot;name&quot;: &quot;Open&quot;,
-            &quot;desc&quot;: &quot;Opens (or returns) the client replica for Options.StoreName.\n\n:::danger Type solver required\n**Typed State requires the new Luau type solver.** Annotate after load:\n\n```lua\nlocal S: DataVault.State&lt;MyData&gt; = Client:Explicit()\n```\n:::&quot;,
+            &quot;desc&quot;: &quot;Opens (or returns) the client replica for Options.StoreName.\n\n:::danger Type solver required\n**Typed State requires the new Luau type solver.** Annotate after load.\n:::&quot;,
             &quot;params&quot;: [
                 {
                     &quot;name&quot;: &quot;Options&quot;,
@@ -118,7 +111,7 @@ Client<span class="token punctuation">:</span><span class="token function">Wait<
             ],
             &quot;function_type&quot;: &quot;static&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 164,
+                &quot;line&quot;: 150,
                 &quot;path&quot;: &quot;src/Client.luau&quot;
             }
         },
@@ -134,7 +127,7 @@ Client<span class="token punctuation">:</span><span class="token function">Wait<
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 234,
+                &quot;line&quot;: 220,
                 &quot;path&quot;: &quot;src/Client.luau&quot;
             }
         },
@@ -150,7 +143,7 @@ Client<span class="token punctuation">:</span><span class="token function">Wait<
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 245,
+                &quot;line&quot;: 231,
                 &quot;path&quot;: &quot;src/Client.luau&quot;
             }
         },
@@ -166,7 +159,7 @@ Client<span class="token punctuation">:</span><span class="token function">Wait<
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 255,
+                &quot;line&quot;: 241,
                 &quot;path&quot;: &quot;src/Client.luau&quot;
             }
         },
@@ -188,7 +181,7 @@ Client<span class="token punctuation">:</span><span class="token function">Wait<
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 266,
+                &quot;line&quot;: 252,
                 &quot;path&quot;: &quot;src/Client.luau&quot;
             }
         },
@@ -199,7 +192,7 @@ Client<span class="token punctuation">:</span><span class="token function">Wait<
             &quot;returns&quot;: [],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 298,
+                &quot;line&quot;: 284,
                 &quot;path&quot;: &quot;src/Client.luau&quot;
             }
         },
@@ -221,7 +214,7 @@ Client<span class="token punctuation">:</span><span class="token function">Wait<
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 309,
+                &quot;line&quot;: 295,
                 &quot;path&quot;: &quot;src/Client.luau&quot;
             }
         }
@@ -229,9 +222,9 @@ Client<span class="token punctuation">:</span><span class="token function">Wait<
     &quot;properties&quot;: [],
     &quot;types&quot;: [],
     &quot;name&quot;: &quot;DataVaultClient&quot;,
-    &quot;desc&quot;: &quot;Client replica of a DataVault store. Same State surface as the server, but\nwrites error (mutate on the server only).\n\n:::danger Type solver required for typed State\n**Typed `State&lt;T&gt;` / `Access&lt;T&gt;` requires the new Luau type solver.**\n\n```lua\nlocal Client = SharedVault.Client\nClient:Wait()\n\nlocal S = Client:Explicit()\nprint(S.Coins.Get())\n```\n\nEnable `Workspace.UseNewLuauTypeSolver = Enabled` or typed fields for :Explicit() will not autocomplete.\n:::&quot;,
+    &quot;desc&quot;: &quot;Client replica of a DataVault store. Same State surface as the server, but\nwrites error (mutate on the server only).\n\n:::danger Type solver required for typed State\n**Typed `State&lt;T&gt;` / `Access&lt;T&gt;` requires the new Luau type solver.**\n:::&quot;,
     &quot;source&quot;: {
-        &quot;line&quot;: 23,
+        &quot;line&quot;: 13,
         &quot;path&quot;: &quot;src/Client.luau&quot;
     }
 }</pre></details></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#functions" class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href="#Explicit" class="table-of-contents__link toc-highlight">:Explicit</a></li><li><a href="#Get" class="table-of-contents__link toc-highlight">:Get</a></li><li><a href="#IsReady" class="table-of-contents__link toc-highlight">:IsReady</a></li><li><a href="#Observe" class="table-of-contents__link toc-highlight">:Observe</a></li><li><a href="#RequestSync" class="table-of-contents__link toc-highlight">:RequestSync</a></li><li><a href="#Wait" class="table-of-contents__link toc-highlight">:Wait</a></li><li><a href="#Open" class="table-of-contents__link toc-highlight">.Open</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 soggybird0. Built with Moonwave and Docusaurus.</div></div></div></footer></div>

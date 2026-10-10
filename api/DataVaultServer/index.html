@@ -12,8 +12,8 @@ for gameplay reads and writes."><meta data-rh="true" property="og:description" c
 
 Key-first API. Prefer [State](/api/DataVaultServer#State) / [Player](/api/DataVaultServer#Player)
 for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https://soggybird0.github.io/DataVault/api/DataVaultServer"><link data-rh="true" rel="alternate" href="https://soggybird0.github.io/DataVault/api/DataVaultServer" hreflang="en"><link data-rh="true" rel="alternate" href="https://soggybird0.github.io/DataVault/api/DataVaultServer" hreflang="x-default"><link rel="stylesheet" href="/DataVault/assets/css/styles.3f63b0bb.css">
-<script src="/DataVault/assets/js/runtime~main.eac8bfd7.js" defer="defer"></script>
-<script src="/DataVault/assets/js/main.d710f17e.js" defer="defer"></script>
+<script src="/DataVault/assets/js/runtime~main.d69bd0f6.js" defer="defer"></script>
+<script src="/DataVault/assets/js/main.7200f902.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -49,49 +49,56 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
 
 </div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="KeyFor"><code style="text-decoration:none">KeyFor</code><a href="#KeyFor" class="hash-link" aria-label="Direct link to KeyFor" title="Direct link to KeyFor" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L406"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">KeyFor</code><code>(</code><code>Player<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code><code>) → </code><code class="blue_P4bS">string</code></div><div>
 <p>Builds the session key for a player (<code>KeyPrefix</code> + UserId by default).</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Explicit"><code style="text-decoration:none">Explicit</code><a href="#Explicit" class="hash-link" aria-label="Direct link to Explicit" title="Direct link to Explicit" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L427"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Explicit</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/DataVault/api/State">State</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Explicit"><code style="text-decoration:none">Explicit</code><a href="#Explicit" class="hash-link" aria-label="Direct link to Explicit" title="Direct link to Explicit" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L421"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Explicit</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="/DataVault/api/State">State</a></code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code></div><div>
 <p>Returns the typed state tree for a session key.</p>
-<p>
-  :::danger Type solver required
-  <strong>Annotate the result for autocomplete:</strong>
-</p>
-<pre class="language-lua"><code class="language-lua"><span class="token keyword">local</span> S<span class="token punctuation">:</span> DataVault<span class="token punctuation">.</span>State<span class="token operator">&#x3C;</span>MyData<span class="token operator">></span> <span class="token operator">=</span> Server<span class="token punctuation">:</span><span class="token function">Explicit</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span>
-</code></pre>
-<p>
-  The new Luau type solver <strong>must</strong> be enabled or fields will not expand.
-  :::
-</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Load"><code style="text-decoration:none">Load</code><a href="#Load" class="hash-link" aria-label="Direct link to Load" title="Direct link to Load" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L439"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Load</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Params<!-- -->: </code><code class="blue_P4bS">Types.SessionParams?</code></div></div><code>) → </code><code class="blue_P4bS">Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="blue_P4bS">?</code></div><div>
+
+  
+    
+    
+      <div class="admonition admonition-danger alert alert--danger">
+        <div class="admonition-heading">
+          <h5><span class="admonition-icon"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="16" viewBox="0 0 12 16">
+                <path d="M5.05.31c.81 2.17.41 3.38-.52 4.31C3.55 5.67 1.98 6.45.9 7.98c-1.45 2.05-1.7 6.53 3.53 7.7-2.2-1.16-2.67-4.52-.3-6.61-.61 2.03.53 3.33 1.94 2.86 1.39-.47 2.3.53 2.27 1.67-.02.78-.31 1.44-1.13 1.81 3.42-.59 4.78-3.42 4.78-5.56 0-2.84-2.53-3.22-1.25-5.61-1.52.13-2.03 1.13-1.89 2.75.09 1.08-1.02 1.8-1.86 1.33-.67-.41-.66-1.19-.06-1.78C8.18 5.31 8.68 2.45 5.05.32L5.03.3l.02.01z"></path>
+              </svg></span><span class="admonition-title">Type solver required</span></h5>
+        </div>
+        <div class="admonition-content">
+          <p>The new Luau type solver <strong>must</strong> be enabled or fields will not expand.</p>
+        </div>
+      </div>
+    
+  
+
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Load"><code style="text-decoration:none">Load</code><a href="#Load" class="hash-link" aria-label="Direct link to Load" title="Direct link to Load" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L433"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Load</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Params<!-- -->: </code><code class="blue_P4bS">Types.SessionParams?</code></div></div><code>) → </code><code class="blue_P4bS">Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="blue_P4bS">?</code></div><div>
 <p>Starts (or returns) an active ProfileStore session for <code>Key</code>.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="End"><code style="text-decoration:none">End</code><a href="#End" class="hash-link" aria-label="Direct link to End" title="Direct link to End" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L495"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">End</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code>(</code><code>)</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="End"><code style="text-decoration:none">End</code><a href="#End" class="hash-link" aria-label="Direct link to End" title="Direct link to End" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L489"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">End</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code>(</code><code>)</code></div><div>
 <p>Ends the session for <code>Key</code> and clears pending replication.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="BindPlayers"><code style="text-decoration:none">BindPlayers</code><a href="#BindPlayers" class="hash-link" aria-label="Direct link to BindPlayers" title="Direct link to BindPlayers" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L520"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">BindPlayers</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="BindPlayers"><code style="text-decoration:none">BindPlayers</code><a href="#BindPlayers" class="hash-link" aria-label="Direct link to BindPlayers" title="Direct link to BindPlayers" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L514"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">BindPlayers</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
 <p>Binds <code>Players.PlayerAdded</code> / <code>PlayerRemoving</code> to Load/End using <code>KeyFor</code>.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Get"><code style="text-decoration:none">Get</code><a href="#Get" class="hash-link" aria-label="Direct link to Get" title="Direct link to Get" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L554"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Get</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code class="blue_P4bS">T?</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Get"><code style="text-decoration:none">Get</code><a href="#Get" class="hash-link" aria-label="Direct link to Get" title="Direct link to Get" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L548"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Get</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code class="blue_P4bS">T?</code></div><div>
 <p>Returns live profile data for an active session, or nil.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="IsLoaded"><code style="text-decoration:none">IsLoaded</code><a href="#IsLoaded" class="hash-link" aria-label="Direct link to IsLoaded" title="Direct link to IsLoaded" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L566"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">IsLoaded</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="IsLoaded"><code style="text-decoration:none">IsLoaded</code><a href="#IsLoaded" class="hash-link" aria-label="Direct link to IsLoaded" title="Direct link to IsLoaded" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L560"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">IsLoaded</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
 <p>Whether an active session exists for <code>Key</code>.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Wait"><code style="text-decoration:none">Wait</code><a href="#Wait" class="hash-link" aria-label="Direct link to Wait" title="Direct link to Wait" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L578"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Wait</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Timeout<!-- -->: </code><code class="blue_P4bS">number?</code></div></div><code>) → </code><code class="blue_P4bS">Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="blue_P4bS">?</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Wait"><code style="text-decoration:none">Wait</code><a href="#Wait" class="hash-link" aria-label="Direct link to Wait" title="Direct link to Wait" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L572"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Wait</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Timeout<!-- -->: </code><code class="blue_P4bS">number?</code></div></div><code>) → </code><code class="blue_P4bS">Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="blue_P4bS">?</code></div><div>
 <p>Yields until the session for <code>Key</code> is loaded (or timeout).</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="WaitData"><code style="text-decoration:none">WaitData</code><a href="#WaitData" class="hash-link" aria-label="Direct link to WaitData" title="Direct link to WaitData" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L620"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">WaitData</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Timeout<!-- -->: </code><code class="blue_P4bS">number?</code></div></div><code>) → </code><code>(</code><div class="inset_uKQm"><div><code class="blue_P4bS">T?</code><code>,</code></div><div><code class="blue_P4bS">LoadFailureReason?</code></div></div><code>)</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="WaitData"><code style="text-decoration:none">WaitData</code><a href="#WaitData" class="hash-link" aria-label="Direct link to WaitData" title="Direct link to WaitData" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L614"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">WaitData</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Timeout<!-- -->: </code><code class="blue_P4bS">number?</code></div></div><code>) → </code><code>(</code><div class="inset_uKQm"><div><code class="blue_P4bS">T?</code><code>,</code></div><div><code class="blue_P4bS">LoadFailureReason?</code></div></div><code>)</code></div><div>
 <p>Yields for data only. Returns <code>(nil, reason)</code> on failure.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Keys"><code style="text-decoration:none">Keys</code><a href="#Keys" class="hash-link" aria-label="Direct link to Keys" title="Direct link to Keys" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L641"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Keys</code><code>(</code><code>) → </code><code class="purple_ieR2">{</code><code class="blue_P4bS">string</code><code class="purple_ieR2">}</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Keys"><code style="text-decoration:none">Keys</code><a href="#Keys" class="hash-link" aria-label="Direct link to Keys" title="Direct link to Keys" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L635"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Keys</code><code>(</code><code>) → </code><code class="purple_ieR2">{</code><code class="blue_P4bS">string</code><code class="purple_ieR2">}</code></div><div>
 <p>Active session keys.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Save"><code style="text-decoration:none">Save</code><a href="#Save" class="hash-link" aria-label="Direct link to Save" title="Direct link to Save" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L657"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Save</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code>(</code><code>)</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Save"><code style="text-decoration:none">Save</code><a href="#Save" class="hash-link" aria-label="Direct link to Save" title="Direct link to Save" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L651"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Save</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code>(</code><code>)</code></div><div>
 <p>Saves one active session.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="SaveAll"><code style="text-decoration:none">SaveAll</code><a href="#SaveAll" class="hash-link" aria-label="Direct link to SaveAll" title="Direct link to SaveAll" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L673"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">SaveAll</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="SaveAll"><code style="text-decoration:none">SaveAll</code><a href="#SaveAll" class="hash-link" aria-label="Direct link to SaveAll" title="Direct link to SaveAll" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L667"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">SaveAll</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
 <p>Saves every active session.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Replicate"><code style="text-decoration:none">Replicate</code><a href="#Replicate" class="hash-link" aria-label="Direct link to Replicate" title="Direct link to Replicate" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L694"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Replicate</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Target<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player?<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code></div></div><code>) → </code><code>(</code><code>)</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Replicate"><code style="text-decoration:none">Replicate</code><a href="#Replicate" class="hash-link" aria-label="Direct link to Replicate" title="Direct link to Replicate" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L688"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Replicate</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Target<!-- -->: </code><code class="blue_P4bS"><a style="text-decoration:underline;color:inherit" href="https://developer.roblox.com/en-us/api-reference/class/Player" target="_blank" rel="noopener noreferrer">Player?<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound" style="color:gray;vertical-align:middle;margin-left:2px"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></code></div></div><code>) → </code><code>(</code><code>)</code></div><div>
 <p>Forces a full buffer replica for <code>Key</code> (optionally to one player).</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Flush"><code style="text-decoration:none">Flush</code><a href="#Flush" class="hash-link" aria-label="Direct link to Flush" title="Direct link to Flush" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L706"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Flush</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string?</code><code>) → </code><code>(</code><code>)</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Flush"><code style="text-decoration:none">Flush</code><a href="#Flush" class="hash-link" aria-label="Direct link to Flush" title="Direct link to Flush" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L700"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Flush</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string?</code><code>) → </code><code>(</code><code>)</code></div><div>
 <p>Flushes pending patches/full replicas now.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Message"><code style="text-decoration:none">Message</code><a href="#Message" class="hash-link" aria-label="Direct link to Message" title="Direct link to Message" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L722"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Message</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Message<!-- -->: </code><code class="blue_P4bS">Types.JSONAcceptable</code></div></div><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Message"><code style="text-decoration:none">Message</code><a href="#Message" class="hash-link" aria-label="Direct link to Message" title="Direct link to Message" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L716"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Message</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Message<!-- -->: </code><code class="blue_P4bS">Types.JSONAcceptable</code></div></div><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
 <p>Sends a ProfileStore cross-server message for <code>Key</code>.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="View"><code style="text-decoration:none">View</code><a href="#View" class="hash-link" aria-label="Direct link to View" title="Direct link to View" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L734"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">View</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Version<!-- -->: </code><code class="blue_P4bS">string?</code></div></div><code>) → </code><code class="blue_P4bS">Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="blue_P4bS">?</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="View"><code style="text-decoration:none">View</code><a href="#View" class="hash-link" aria-label="Direct link to View" title="Direct link to View" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L728"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">View</code><code>(</code><div class="inset_uKQm"><div><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>,</code></div><div><code>Version<!-- -->: </code><code class="blue_P4bS">string?</code></div></div><code>) → </code><code class="blue_P4bS">Profile</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code class="blue_P4bS">?</code></div><div>
 <p>Reads a profile without taking a session lock (view-only).</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Remove"><code style="text-decoration:none">Remove</code><a href="#Remove" class="hash-link" aria-label="Direct link to Remove" title="Direct link to Remove" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L745"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Remove</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Remove"><code style="text-decoration:none">Remove</code><a href="#Remove" class="hash-link" aria-label="Direct link to Remove" title="Direct link to Remove" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L739"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Remove</code><code>(</code><code>Key<!-- -->: </code><code class="blue_P4bS">string</code><code>) → </code><code class="blue_P4bS">boolean</code></div><div>
 <p>Removes stored data and ends any local session for <code>Key</code>.</p>
-</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Destroy"><code style="text-decoration:none">Destroy</code><a href="#Destroy" class="hash-link" aria-label="Direct link to Destroy" title="Direct link to Destroy" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L756"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Destroy</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
+</div><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Destroy"><code style="text-decoration:none">Destroy</code><a href="#Destroy" class="hash-link" aria-label="Direct link to Destroy" title="Direct link to Destroy" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/Server.luau#L750"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVaultServer<!-- -->:</code><code class="green_DgR4">Destroy</code><code>(</code><code>) → </code><code>(</code><code>)</code></div><div>
 <p>Flushes, ends all sessions, and tears down internal state.</p>
 </div></div></article></div><details><summary>Show raw api</summary><pre style="max-width:100%;white-space:pre-wrap">{
     &quot;functions&quot;: [
@@ -141,7 +148,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
         },
         {
             &quot;name&quot;: &quot;Explicit&quot;,
-            &quot;desc&quot;: &quot;Returns the typed state tree for a session key.\n\n:::danger Type solver required\n**Annotate the result for autocomplete:**\n\n```lua\nlocal S: DataVault.State&lt;MyData&gt; = Server:Explicit(key)\n```\n\nThe new Luau type solver **must** be enabled or fields will not expand.\n:::\n\n\t&quot;,
+            &quot;desc&quot;: &quot;Returns the typed state tree for a session key.\n\n:::danger Type solver required\nThe new Luau type solver **must** be enabled or fields will not expand.\n:::\n\n\t&quot;,
             &quot;params&quot;: [
                 {
                     &quot;name&quot;: &quot;Key&quot;,
@@ -157,7 +164,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 427,
+                &quot;line&quot;: 421,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -184,7 +191,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 439,
+                &quot;line&quot;: 433,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -201,7 +208,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             &quot;returns&quot;: [],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 495,
+                &quot;line&quot;: 489,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -212,7 +219,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             &quot;returns&quot;: [],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 520,
+                &quot;line&quot;: 514,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -234,7 +241,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 554,
+                &quot;line&quot;: 548,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -256,7 +263,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 566,
+                &quot;line&quot;: 560,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -283,7 +290,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 578,
+                &quot;line&quot;: 572,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -314,7 +321,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 620,
+                &quot;line&quot;: 614,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -330,7 +337,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 641,
+                &quot;line&quot;: 635,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -347,7 +354,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             &quot;returns&quot;: [],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 657,
+                &quot;line&quot;: 651,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -358,7 +365,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             &quot;returns&quot;: [],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 673,
+                &quot;line&quot;: 667,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -380,7 +387,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             &quot;returns&quot;: [],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 694,
+                &quot;line&quot;: 688,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -397,7 +404,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             &quot;returns&quot;: [],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 706,
+                &quot;line&quot;: 700,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -424,7 +431,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 722,
+                &quot;line&quot;: 716,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -451,7 +458,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 734,
+                &quot;line&quot;: 728,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -473,7 +480,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             ],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 745,
+                &quot;line&quot;: 739,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         },
@@ -484,7 +491,7 @@ for gameplay reads and writes."><link data-rh="true" rel="canonical" href="https
             &quot;returns&quot;: [],
             &quot;function_type&quot;: &quot;method&quot;,
             &quot;source&quot;: {
-                &quot;line&quot;: 756,
+                &quot;line&quot;: 750,
                 &quot;path&quot;: &quot;src/Server.luau&quot;
             }
         }
