@@ -250,7 +250,6 @@ type function Access(t: type)
 	return leaf(types.any, false)
 end
 
-export type Access<T> = Access<T>
 export type State<T> = Access<T>
 
 export type NumberNode = Access<number>
