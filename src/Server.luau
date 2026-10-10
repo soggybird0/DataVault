@@ -11,14 +11,6 @@
 
 	:::danger Type solver required for typed State
 	**Typed `State<T>` / `Access<T>` requires the new Luau type solver.**
-
-	Enable `Workspace.UseNewLuauTypeSolver = Enabled` (or the equivalent Luau LSP
-	setting). Annotate loaded state:
-
-	```lua
-	local S = Server:Explicit(key)
-	```
-
 	Without the new solver, runtime works but field/method autocomplete will not expand.
 	:::
 ]=]
