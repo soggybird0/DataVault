@@ -18,6 +18,8 @@ The New Luau Type Solver is **not required**.
 Data remains fully typed even if the solver is disabled.
 :::
 
+::
+
 ## Why DataVault?
 
 | Feature | Benefit |
