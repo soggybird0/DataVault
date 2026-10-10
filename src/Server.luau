@@ -8,7 +8,6 @@
 
 	Key-first API. Prefer [State](/api/DataVaultServer#State) / [Player](/api/DataVaultServer#Player)
 	for gameplay reads and writes.
-
 	:::danger Type solver required 
 ]=]
 
