@@ -8,8 +8,6 @@
 
 	:::danger Type solver required for typed State
 	**Typed `State<T>` / `Access<T>` requires the new Luau type solver.**
-
-	Enable `Workspace.UseNewLuauTypeSolver = Enabled` or typed fields for :Explicit() will not autocomplete.
 	:::
 ]=]
 
