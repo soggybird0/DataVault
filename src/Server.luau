@@ -18,8 +18,6 @@
 	```lua
 	type MyData = typeof(Template)
 	local S = Server:Explicit(key)
-	-- or
-	local S = Server:Player(player)
 	```
 
 	Without the new solver, runtime works but field/method autocomplete will not expand.
