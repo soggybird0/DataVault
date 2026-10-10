@@ -9,14 +9,6 @@
 	:::danger Type solver required for typed State
 	**Typed `State<T>` / `Access<T>` requires the new Luau type solver.**
 
-	```lua
-	local Client = SharedVault.Client
-	Client:Wait()
-
-	local S = Client:Explicit()
-	print(S.Coins.Get())
-	```
-
 	Enable `Workspace.UseNewLuauTypeSolver = Enabled` or typed fields for :Explicit() will not autocomplete.
 	:::
 ]=]
