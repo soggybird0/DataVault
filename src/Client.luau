@@ -10,8 +10,6 @@
 	**Typed `State<T>` / `Access<T>` requires the new Luau type solver.**
 
 	```lua
-	type MyData = typeof(Template)
-	
 	local Client = SharedVault.Client
 	Client:Wait()
 
