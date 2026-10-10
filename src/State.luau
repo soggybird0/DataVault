@@ -9,18 +9,6 @@
 
 	:::danger Type solver required
 	**The new Luau type solver is required for typed `State<T>` / `Access<T>`.**
-
-	Enable `Workspace.UseNewLuauTypeSolver = Enabled`, then annotate:
-
-	```lua
-	local S = Server:Explicit(key)
-	S.Coins.Get()
-	S.Coins.Increment(50)
-	S.Inventory.OnInsert(function(id, item) end)
-	```
-
-	Without the new solver, methods still run, but autocomplete will not expand
-	fields or type-specific methods from your template.
 	:::
 
 	**All nodes:** Get, Set, Update, Observe, Raw, Snapshot, call sugar  
