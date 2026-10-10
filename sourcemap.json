@@ -1,1 +1,21 @@
-{"name":"DataVault","className":"ModuleScript","filePaths":["src/init.luau","default.project.json"],"children":[{"name":"Client","className":"ModuleScript","filePaths":["src/Client.luau"]},{"name":"Libraries","className":"Folder","children":[{"name":"ProfileStore","className":"ModuleScript","filePaths":["src/Libraries/ProfileStore.luau"]},{"name":"Remote","className":"ModuleScript","filePaths":["src/Libraries/Remote.luau"]},{"name":"Signal","className":"ModuleScript","filePaths":["src/Libraries/Signal.luau"]}]},{"name":"Server","className":"ModuleScript","filePaths":["src/Server.luau"]},{"name":"Types","className":"ModuleScript","filePaths":["src/Types.luau"]},{"name":"Util","className":"ModuleScript","filePaths":["src/Util.luau"]}]}
+{
+  "name": "DataVault",
+  "className": "ModuleScript",
+  "filePaths": ["src/init.luau", "default.project.json"],
+  "children": [
+    { "name": "Client", "className": "ModuleScript", "filePaths": ["src/Client.luau"] },
+    { "name": "Server", "className": "ModuleScript", "filePaths": ["src/Server.luau"] },
+    { "name": "State", "className": "ModuleScript", "filePaths": ["src/State.luau"] },
+    { "name": "Types", "className": "ModuleScript", "filePaths": ["src/Types.luau"] },
+    { "name": "Util", "className": "ModuleScript", "filePaths": ["src/Util.luau"] },
+    {
+      "name": "Libraries",
+      "className": "Folder",
+      "children": [
+        { "name": "ProfileStore", "className": "ModuleScript", "filePaths": ["src/Libraries/ProfileStore.luau"] },
+        { "name": "Remote", "className": "ModuleScript", "filePaths": ["src/Libraries/Remote.luau"] },
+        { "name": "Signal", "className": "ModuleScript", "filePaths": ["src/Libraries/Signal.luau"] }
+      ]
+    }
+  ]
+}
