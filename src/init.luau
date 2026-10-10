@@ -25,7 +25,7 @@
 
 	```lua
 	type MyData = typeof(Template)
-	local S: DataVault.State<MyData> = Server:State(key)
+	local S = Server:State(key)
 	```
 	:::
 
