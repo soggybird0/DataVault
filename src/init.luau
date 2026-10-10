@@ -72,7 +72,7 @@ DataVault.Version = "1.1.1"
 
 	@within DataVault
 	@param Options Config<T>
-	@return table -- Server & Client instance
+	@return table -- Server & Client instances
 ]=]
 function DataVault:Init<T>(Options: Types.Config<T>)
 	return {
