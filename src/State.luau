@@ -5,7 +5,7 @@
 
 	Typed state node for one path under a session.
 
-	Obtained from DataVaultServer:State or DataVaultClient:State.
+	Obtained from DataVaultServer:Explciit() or DataVaultClient:State.
 
 	:::danger Type solver required
 	**The new Luau type solver is required for typed `State<T>` / `Access<T>`.**
