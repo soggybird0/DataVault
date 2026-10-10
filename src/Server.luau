@@ -7,12 +7,12 @@
 	[DataVault.Open](/api/DataVault#Open) on the server.
 
 	Key-first API. Prefer [State](/api/DataVaultServer#State) / [Player](/api/DataVaultServer#Player)
-	for gameplay reads and writes.
-
-	:::danger Type solver required for typed State
+	for gameplay reads and writes.for typed State
 	**Typed `State<T>` / `Access<T>` requires the new Luau type solver.**
 	Without the new solver, runtime works but field/method autocomplete will not expand.
 	:::
+
+	:::danger Type solver required 
 ]=]
 
 
