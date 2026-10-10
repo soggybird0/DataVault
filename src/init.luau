@@ -13,7 +13,7 @@
 
 	:::danger Type solver required for typed access
 	**The new Luau type solver is required for typed `Access<T>` / `State<T>`
-	autocomplete and type-checking. This only applies for :Explic**
+	autocomplete and type-checking. This only applies for :Explicit() calls**
 
 	Enable it before relying on typed state:
 
