@@ -1,4 +1,10 @@
+--[=[
+	Forces a full replica for this session.
 
+	@param Target Player?
+
+	@within State
+]=]
 --[=[
 	Ends the underlying session (root / server).
 
