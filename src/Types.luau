@@ -8,13 +8,6 @@
 
 	:::danger Type solver required for Access / State
 	**The new Luau type solver is required for typed `Access<T>` and `State<T>`.**
-
-	```lua
-	type MyData = typeof(Template)
-	local S = Server:Explicit(key)
-	```
-
-	Without it, runtime is fine; field/method autocomplete will not expand from the template.
 	:::
 ]=]
 
