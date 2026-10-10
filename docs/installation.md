@@ -11,7 +11,7 @@ Get the latest model here:
 
 ## From DevForum / Releases
 
-1. Download the latest `.rbxm` from the [DevForum post](https://devforum.roblox.com/t/datavault-typed-replicated-data-on-top-of-profilestore/4910665) or GitHub Releases.
+1. Download the latest `.rbxm` from the [DevForum post](https://devforum.roblox.com/t/datavault-typed-replicated-player-data-on-top-of-profilestore/4912795) or GitHub Releases.
 2. Place the `DataVault` folder into `ReplicatedStorage` (or any shared location).
 3. Enable **API Services** in your game settings (Game Settings → Security → Enable Studio Access to API Services).
 
