@@ -17,7 +17,7 @@
 	print(S.Coins.Get())
 	```
 
-	Enable `Workspace.UseNewLuauTypeSolver = Enabled` or typed fields will not autocomplete.
+	Enable `Workspace.UseNewLuauTypeSolver = Enabled` or typed fields for  will not autocomplete.
 	:::
 ]=]
 
