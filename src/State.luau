@@ -13,7 +13,7 @@
 	Enable `Workspace.UseNewLuauTypeSolver = Enabled`, then annotate:
 
 	```lua
-	local S: DataVault.State<MyData> = Server:Explicit(key)
+	local S = Server:Explicit(key)
 	S.Coins.Get()
 	S.Coins.Increment(50)
 	S.Inventory.OnInsert(function(id, item) end)
