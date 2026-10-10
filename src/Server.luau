@@ -16,7 +16,6 @@
 	setting). Annotate loaded state:
 
 	```lua
-	type MyData = typeof(Template)
 	local S = Server:Explicit(key)
 	```
 
