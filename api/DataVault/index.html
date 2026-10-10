@@ -11,7 +11,7 @@ gives Scribe-style autocomplete on paths like `data.Coins.Increment(50)`.
 
 :::danger Type solver required for typed access
 **The new Luau type solver is required for typed `Access&lt;T&gt;` / `State&lt;T&gt;`
-autocomplete and type-checking.**
+autocomplete and type-checking. This only applies for :Explicit() calls.**
 
 Enable it before relying on typed state:
 
@@ -23,7 +23,7 @@ field/method autocomplete. Annotate loaded state explicitly:
 
 ```lua
 type MyData = typeof(Template)
-local S: DataVault.State&lt;MyData&gt; = Server:State(key)
+local S = Server:Explicit(key)
 ```
 :::"><meta data-rh="true" property="og:description" content="Authoritative typed state layer: mutate once → dirty-track → calculated
 buffer replicate → persist.
@@ -33,7 +33,7 @@ gives Scribe-style autocomplete on paths like `data.Coins.Increment(50)`.
 
 :::danger Type solver required for typed access
 **The new Luau type solver is required for typed `Access&lt;T&gt;` / `State&lt;T&gt;`
-autocomplete and type-checking.**
+autocomplete and type-checking. This only applies for :Explicit() calls.**
 
 Enable it before relying on typed state:
 
@@ -45,11 +45,11 @@ field/method autocomplete. Annotate loaded state explicitly:
 
 ```lua
 type MyData = typeof(Template)
-local S: DataVault.State&lt;MyData&gt; = Server:State(key)
+local S = Server:Explicit(key)
 ```
 :::"><link data-rh="true" rel="canonical" href="https://soggybird0.github.io/DataVault/api/DataVault"><link data-rh="true" rel="alternate" href="https://soggybird0.github.io/DataVault/api/DataVault" hreflang="en"><link data-rh="true" rel="alternate" href="https://soggybird0.github.io/DataVault/api/DataVault" hreflang="x-default"><link rel="stylesheet" href="/DataVault/assets/css/styles.3f63b0bb.css">
-<script src="/DataVault/assets/js/runtime~main.d755806e.js" defer="defer"></script>
-<script src="/DataVault/assets/js/main.d7a06043.js" defer="defer"></script>
+<script src="/DataVault/assets/js/runtime~main.38a526fd.js" defer="defer"></script>
+<script src="/DataVault/assets/js/main.509d6c13.js" defer="defer"></script>
 </head>
 <body>
 <svg style="display: none;"><defs>
@@ -67,7 +67,7 @@ local S: DataVault.State&lt;MyData&gt; = Server:State(key)
 <p>
   :::danger Type solver required for typed access
   <strong>The new Luau type solver is required for typed <code>Access&#x3C;T></code> / <code>State&#x3C;T></code>
-autocomplete and type-checking.</strong>
+autocomplete and type-checking. This only applies for :Explicit() calls.</strong>
 </p>
 <p>Enable it before relying on typed state:</p>
 <ul>
@@ -79,7 +79,7 @@ autocomplete and type-checking.</strong>
   field/method autocomplete. Annotate loaded state explicitly:
 </p>
 <pre class="language-lua"><code class="language-lua">type MyData <span class="token operator">=</span> <span class="token function">typeof</span><span class="token punctuation">(</span>Template<span class="token punctuation">)</span>
-<span class="token keyword">local</span> S<span class="token punctuation">:</span> DataVault<span class="token punctuation">.</span>State<span class="token operator">&#x3C;</span>MyData<span class="token operator">></span> <span class="token operator">=</span> Server<span class="token punctuation">:</span><span class="token function">State</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span>
+<span class="token keyword">local</span> S <span class="token operator">=</span> Server<span class="token punctuation">:</span><span class="token function">Explicit</span><span class="token punctuation">(</span>key<span class="token punctuation">)</span>
 </code></pre>
 <p>:::</p>
 </div></header><h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="properties">Properties<a href="#properties" class="hash-link" aria-label="Direct link to Properties" title="Direct link to Properties" translate="no">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Version"><code style="text-decoration:none">Version</code><a href="#Version" class="hash-link" aria-label="Direct link to Version" title="Direct link to Version" translate="no">​</a></h3><span class="badge_Ba2I" style="color:#e74c3c"><span class="badgeTooltip_cWXP">This item is read only and cannot be modified.</span><span class="badgeToolTipTail_H9D_"><svg xmlns="http://www.w3.org/2000/svg" height="300px" width="300px" fill="#e74c3c" x="0px" y="0px" viewBox="0 0 96 96"><path d="M70.354,15.662h-7.496H25.566c-3.282,0-5.19-0.776-5.728-1.169v-1.456c0.538-0.393,2.445-1.168,5.728-1.168h46.479V8H25.566  c-4.776,0-9.594,1.468-9.594,4.747v61.458C15.972,86.645,20.328,88,37.495,88h42.535V15.662H70.354z"></path></svg> <!-- -->Read Only</span></span><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/init.luau#L60"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVault<!-- -->.<!-- -->Version<!-- -->:<!-- --> </code> <code class="blue_P4bS">string</code></div><div></div><h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="functions">Functions<a href="#functions" class="hash-link" aria-label="Direct link to Functions" title="Direct link to Functions" translate="no">​</a></h2><div class="divider_rE5g"></div><h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="Init"><code style="text-decoration:none">Init</code><a href="#Init" class="hash-link" aria-label="Direct link to Init" title="Direct link to Init" translate="no">​</a></h3><div class="repositoryDetailsContainer_BPdw"><a class="sourceButton_sEho" href="https://github.com/soggybird0/DataVault/blob/master/src/init.luau#L77"><div class="sourceButtonText_Vh0m">&lt;/&gt;</div></a></div><div class="memberString_GwaU"><code>DataVault<!-- -->:</code><code class="green_DgR4">Init</code><code>(</code><code>Options<!-- -->: </code><code class="blue_P4bS">Config</code><code class="op_lSLc">&lt;</code><code class="blue_P4bS">T</code><code class="op_lSLc">&gt;</code><code>) → </code><code class="blue_P4bS">table</code><span class="inlineDescription_G7Er">-- <span>
@@ -149,7 +149,7 @@ autocomplete and type-checking.</strong>
     ],
     &quot;types&quot;: [],
     &quot;name&quot;: &quot;DataVault&quot;,
-    &quot;desc&quot;: &quot;Authoritative typed state layer: mutate once → dirty-track → calculated\nbuffer replicate → persist.\n\nOne metatable drives the whole data tree. The `Access&lt;T&gt;` type function\ngives Scribe-style autocomplete on paths like `data.Coins.Increment(50)`.\n\n:::danger Type solver required for typed access\n**The new Luau type solver is required for typed `Access&lt;T&gt;` / `State&lt;T&gt;`\nautocomplete and type-checking.**\n\nEnable it before relying on typed state:\n\n- **Studio:** select `Workspace` → set **UseNewLuauTypeSolver** to `Enabled`\n- **Luau LSP:** enable the new type solver in settings\n\nWithout the new solver, runtime still works, but `State&lt;T&gt;` will not expand\nfield/method autocomplete. Annotate loaded state explicitly:\n\n```lua\ntype MyData = typeof(Template)\nlocal S: DataVault.State&lt;MyData&gt; = Server:State(key)\n```\n:::&quot;,
+    &quot;desc&quot;: &quot;Authoritative typed state layer: mutate once → dirty-track → calculated\nbuffer replicate → persist.\n\nOne metatable drives the whole data tree. The `Access&lt;T&gt;` type function\ngives Scribe-style autocomplete on paths like `data.Coins.Increment(50)`.\n\n:::danger Type solver required for typed access\n**The new Luau type solver is required for typed `Access&lt;T&gt;` / `State&lt;T&gt;`\nautocomplete and type-checking. This only applies for :Explicit() calls.**\n\nEnable it before relying on typed state:\n\n- **Studio:** select `Workspace` → set **UseNewLuauTypeSolver** to `Enabled`\n- **Luau LSP:** enable the new type solver in settings\n\nWithout the new solver, runtime still works, but `State&lt;T&gt;` will not expand\nfield/method autocomplete. Annotate loaded state explicitly:\n\n```lua\ntype MyData = typeof(Template)\nlocal S = Server:Explicit(key)\n```\n:::&quot;,
     &quot;realm&quot;: [
         &quot;Client&quot;,
         &quot;Server&quot;
