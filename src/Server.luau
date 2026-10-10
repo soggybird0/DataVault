@@ -411,12 +411,6 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 		Returns the typed state tree for a session key.
 
 		:::danger Type solver required
-		**Annotate the result for autocomplete:**
-
-		```lua
-		local S: DataVault.State<MyData> = Server:Explicit(key)
-		```
-
 		The new Luau type solver **must** be enabled or fields will not expand.
 		:::
 
