@@ -140,7 +140,7 @@ local DataVaultClient = {}
 	Opens (or returns) the client replica for Options.StoreName.
 
 	:::danger Type solver required
-	**Typed State requires the new Luau type solver.** Annotate after load
+	**Typed State requires the new Luau type solver.** Annotate after load.
 	:::
 
 	@within DataVaultClient
