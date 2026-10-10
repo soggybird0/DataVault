@@ -24,6 +24,6 @@ DataVault is a lightweight, fully typed wrapper around [ProfileStore](https://de
 
 ## Installation
 
-1. Get the latest `.rbxm` from the [DevForum post](https://devforum.roblox.com/t/datavault-typed-replicated-data-on-top-of-profilestore/4910665) or Releases.
+1. Get the latest `.rbxm` from the [DevForum post](https://devforum.roblox.com/t/datavault-typed-replicated-player-data-on-top-of-profilestore/4912795) or Releases.
 2. Place the `DataVault` folder into `ReplicatedStorage` (or wherever you prefer).
 3. Make sure you also have API Services enabled in your game.
