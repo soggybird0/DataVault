@@ -16,9 +16,11 @@ It is also the successor of [ProfileStoreTyped](https://devforum.roblox.com/t/pr
 :::tip
 The New Luau Type Solver is **not required**.  
 Data remains fully typed even if the solver is disabled.
-:::
 
-::
+Only time when New Luau Type Solver IS required is when
+the Server or Client instance calls :Explicit() to reference
+the expanded data types.
+:::
 
 ## Why DataVault?
 
