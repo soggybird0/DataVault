@@ -5,29 +5,10 @@
 --[=[
 	@class DataVault
 
-	Authoritative typed state layer: mutate once → dirty-track → calculated
-	buffer replicate → persist.
+	Typed, Replicated, Batched data management over ProfileStore.
 
-	One metatable drives the whole data tree. The `Access<T>` type function
-	gives Scribe-style autocomplete on paths like `data.Coins.Increment(50)`.
-
-	:::danger Type solver required for typed access
-	**The new Luau type solver is required for typed `Access<T>` / `State<T>`
-	autocomplete and type-checking. This only applies for :Explicit() calls.**
-
-	Enable it before relying on typed state:
-
-	- **Studio:** select `Workspace` → set **UseNewLuauTypeSolver** to `Enabled`
-	- **Luau LSP:** enable the new type solver in settings
-
-	Without the new solver, runtime still works, but `State<T>` will not expand
-	field/method autocomplete. Annotate loaded state explicitly:
-
-	```lua
-	type MyData = typeof(Template)
-	local S = Server:Explicit(key)
-	```
-	:::
+	version: 1.1.0
+	by: [@soggybird0]
 
 	@server
 	@client
