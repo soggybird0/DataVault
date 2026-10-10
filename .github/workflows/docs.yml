@@ -23,11 +23,11 @@ jobs:
       - name: Install Moonwave Suite
         run: npm install -g moonwave
 
-      -       - name: Build Static Site Files
+      - name: Build Static Site Files
         run: npx moonwave build --docs docs
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: site  # <-- Changed from 'build' to 'site'
+          folder: site
           branch: gh-pages
