@@ -10,7 +10,6 @@
 	for gameplay reads and writes.
 ]=]
 
-
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 
@@ -65,9 +64,10 @@ function DataVaultServer.Open<T>(Options: Types.Config<T>)
 	local Backend = if UseMock then LiveStore.Mock else LiveStore
 
 	local KeyPrefix = Options.KeyPrefix or ""
-	local MakePlayerKey = Options.PlayerKey or function(Player: Player): string
-		return KeyPrefix .. tostring(Player.UserId)
-	end
+	local MakePlayerKey = Options.PlayerKey
+		or function(Player: Player): string
+			return KeyPrefix .. tostring(Player.UserId)
+		end
 
 	local Sessions: { [string]: Types.Profile<T> } = {}
 	local Seq: { [string]: number } = {}
