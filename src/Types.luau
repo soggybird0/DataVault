@@ -14,7 +14,7 @@
 
 	```lua
 	type MyData = typeof(Template)
-	local S: DataVault.State<MyData> = Server:State(key)
+	local S: DataVault.State<MyData> = Server:Explicit(key)
 	```
 
 	Without it, runtime is fine; field/method autocomplete will not expand from the template.
