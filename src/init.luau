@@ -46,7 +46,6 @@ export type Connection = Types.Connection
 export type MutateOptions = Types.MutateOptions
 export type LoadFailureReason = Types.LoadFailureReason
 export type State<T> = Types.State<T>
-export type Access<T> = Types.Access<T>
 export type NumberNode = Types.NumberNode
 export type BooleanNode = Types.BooleanNode
 export type StringNode = Types.StringNode
