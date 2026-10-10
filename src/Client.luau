@@ -1,61 +1,48 @@
 --!optimize 2
 
---// Dependencies
+--[=[
+	@class DataVaultClient
+
+	Client replica of a DataVault store. Same State surface as the server, but
+	writes error (mutate on the server only).
+
+	:::danger Type solver required for typed State
+	**Typed `State<T>` / `Access<T>` requires the new Luau type solver.**
+
+	```lua
+	type MyData = typeof(Template)
+	local Client = SharedVault.Client
+	Client:Wait()
+	local S: DataVault.State<MyData> = Client:Explicit()
+	print(S.Coins.Get())
+	```
+
+	Enable `Workspace.UseNewLuauTypeSolver = Enabled` or typed fields will not autocomplete.
+	:::
+]=]
+
 
 local Remote = require(script.Parent.Libraries.Remote)
 local Signal = require(script.Parent.Libraries.Signal)
 local Types = require(script.Parent.Types)
 local Util = require(script.Parent.Util)
+local State = require(script.Parent.State)
 
---// Types
+type PathObserver = { Path: Types.Path, Signal: any }
 
-type PathObserver<T> = {
-	Path: Types.Path,
-	Signal: Types.Signal<T>,
-}
-
---// Variables
-
-local ReplicaEvent = Remote.event("DataVault_Replicate") :: Remote.Event<Types.ReplicaPayload<any>>
-local ReplicaRequest = Remote.event("DataVault_Request") :: Remote.Event<Types.ReplicaRequest>
-
-local CLIENT_WRITE_ERROR = "DataVault: client data is read-only. Change it on the server."
+local ReplicaEvent = Remote.event("DataVault_Replicate")
+local ReplicaRequest = Remote.event("DataVault_Request")
 
 local Clients: { [string]: any } = {}
 local Listening = false
 
---// Functions
-
-local function IsReplicaPayload(Value: any): boolean
-	if type(Value) ~= "table" then
-		return false
-	end
-	if type(Value.StoreName) ~= "string" or type(Value.Key) ~= "string" then
-		return false
-	end
-	if type(Value.Seq) ~= "number" then
-		return false
-	end
-	if Value.Kind ~= "Full" and Value.Kind ~= "Patch" then
-		return false
-	end
-	return true
-end
-
 local function Publish(Client: any, Raw: any)
 	Client.Raw = Raw
 	if Client.Guard then
-		Client.Data = Util.ReadOnly(Raw, CLIENT_WRITE_ERROR)
+		Client.Data = Util.ReadOnly(Raw, "DataVault: client data is read-only. Change it on the server.")
 	else
 		Client.Data = Raw
 	end
-end
-
-local function GuardedValue(Client: any, Value: any): any
-	if Client.Guard and type(Value) == "table" then
-		return Util.ReadOnly(Util.Unwrap(Value), CLIENT_WRITE_ERROR)
-	end
-	return Value
 end
 
 local function ApplyPatches(Root: any, Patches: { Types.ReplicaPatch }): any
@@ -63,7 +50,6 @@ local function ApplyPatches(Root: any, Patches: { Types.ReplicaPatch }): any
 	if type(Working) ~= "table" then
 		Working = {}
 	end
-
 	for _, Patch in Patches do
 		if type(Patch) ~= "table" or type(Patch.Path) ~= "table" then
 			continue
@@ -74,24 +60,20 @@ local function ApplyPatches(Root: any, Patches: { Types.ReplicaPatch }): any
 				Working = {}
 			end
 		else
-			local Copied = if type(Patch.Value) == "table" then Util.DeepCopy(Patch.Value) else Patch.Value
-			Util.SetAt(Working, Patch.Path, Copied)
+			Util.SetAt(Working, Patch.Path, if type(Patch.Value) == "table" then Util.DeepCopy(Patch.Value) else Patch.Value)
 		end
 	end
-
 	return Working
 end
 
-local function NotifyPathObservers(Client: any, Patches: { Types.ReplicaPatch }?, Full: boolean)
+local function NotifyPathObservers(Client: any, Patches: any?, Full: boolean)
 	if not Client.PathObservers then
 		return
 	end
-
-	local Source = Client.Raw or Client.Data
+	local Source = Client.Raw
 	if Source == nil then
 		return
 	end
-
 	for _, Entry in Client.PathObservers do
 		local ShouldFire = Full
 		if not ShouldFire and Patches then
@@ -103,9 +85,47 @@ local function NotifyPathObservers(Client: any, Patches: { Types.ReplicaPatch }?
 			end
 		end
 		if ShouldFire then
-			Entry.Signal:Fire(GuardedValue(Client, Util.GetAt(Source, Entry.Path)))
+			Entry.Signal:Fire(Util.GetAt(Source, Entry.Path))
 		end
 	end
+end
+
+local function HandlePayload(Client: any, Payload: any)
+	local Decoded = Payload
+	if typeof(Payload.Buffer) == "buffer" then
+		Decoded = Util.DecodeReplica(Payload.Buffer)
+	end
+	if type(Decoded.Seq) ~= "number" then
+		return
+	end
+	if Decoded.Seq <= Client.Seq then
+		return
+	end
+
+	if Decoded.Kind == "Patch" then
+		if Client.Raw == nil or Decoded.Seq ~= Client.Seq + 1 then
+			Client:RequestSync()
+			return
+		end
+		if type(Decoded.Patches) ~= "table" then
+			return
+		end
+		Client.Key = Decoded.Key
+		Client.Seq = Decoded.Seq
+		Publish(Client, ApplyPatches(Client.Raw, Decoded.Patches))
+		Client.Changed:Fire(Client.Data)
+		NotifyPathObservers(Client, Decoded.Patches, false)
+		return
+	end
+
+	if Decoded.Kind ~= "Full" or Decoded.Data == nil then
+		return
+	end
+	Client.Key = Decoded.Key
+	Client.Seq = Decoded.Seq
+	Publish(Client, Util.DeepCopy(Decoded.Data))
+	Client.Changed:Fire(Client.Data)
+	NotifyPathObservers(Client, nil, true)
 end
 
 local function EnsureListener()
@@ -113,192 +133,121 @@ local function EnsureListener()
 		return
 	end
 	Listening = true
-
 	ReplicaEvent.OnClientEvent:Connect(function(Payload)
-		if not IsReplicaPayload(Payload) then
+		if type(Payload) ~= "table" or type(Payload.StoreName) ~= "string" then
 			return
 		end
-
 		local Client = Clients[Payload.StoreName]
-		if not Client then
-			return
+		if Client then
+			HandlePayload(Client, Payload)
 		end
-
-		if Payload.Seq <= Client.Seq then
-			return
-		end
-
-		if Payload.Kind == "Patch" then
-			if Client.Raw == nil or Payload.Seq ~= Client.Seq + 1 then
-				Client:RequestSync()
-				return
-			end
-			if type(Payload.Patches) ~= "table" then
-				return
-			end
-
-			Client.Key = Payload.Key
-			Client.Seq = Payload.Seq
-			Publish(Client, ApplyPatches(Client.Raw, Payload.Patches))
-			Client.Changed:Fire(Client.Data)
-			NotifyPathObservers(Client, Payload.Patches, false)
-			return
-		end
-
-		if Payload.Data == nil then
-			return
-		end
-
-		Client.Key = Payload.Key
-		Client.Seq = Payload.Seq
-		Publish(Client, Util.DeepCopy(Payload.Data))
-		Client.Changed:Fire(Client.Data)
-		NotifyPathObservers(Client, nil, true)
 	end)
 end
 
---// Class
-
---[=[
-	@class DataVaultClient
-
-	Client-side interface for receiving and observing replicated DataVault data.
-
-	DataVaultClient instances are read-only when `ClientGuard` is enabled.
-	Changes are received automatically from the server through replication.
-]=]
 local DataVaultClient = {}
 
 --[=[
-	@type Client { Data: T?, Key: string?, Seq: number, Changed: Types.Signal<T>, Ready: Types.Signal<T> }
-	@within DataVaultClient
+	Opens (or returns) the client replica for Options.StoreName.
 
-	The object returned by [DataVaultClient.Open].
-]=]
+	:::danger Type solver required
+	**Typed State requires the new Luau type solver.** Annotate after load:
 
---[=[
-	Opens or retrieves a client-side DataVault instance.
-
-	If an instance for the given store already exists, the existing
-	instance is returned.
+	```lua
+	local S: DataVault.State<MyData> = Client:Explicit()
+	```
+	:::
 
 	@within DataVaultClient
 	@param Options Types.Config<T>
-	@return Client
+	@return DataVaultClient
 ]=]
 function DataVaultClient.Open<T>(Options: Types.Config<T>)
 	local Existing = Clients[Options.StoreName]
 	if Existing then
-		return Existing :: Client
+		return Existing :: DataVaultClient
 	end
 
 	EnsureListener()
 
 	local Client = {
-		--[=[
-			@prop Data T?
-			@within DataVaultClient
-			@readonly
-
-			The current replicated data. Read-only when `ClientGuard` is enabled.
-		]=]
 		Data = nil :: T?,
-
-		--[=[
-			@prop Key string?
-			@within DataVaultClient
-			@readonly
-
-			The key associated with the current replica.
-		]=]
 		Key = nil :: string?,
-
-		--[=[
-			@prop Seq number
-			@within DataVaultClient
-			@readonly
-
-			The sequence number of the latest received replica.
-		]=]
 		Seq = 0,
-
-		--[=[
-			@prop Changed Types.Signal<T>
-			@within DataVaultClient
-			@readonly
-
-			Fired whenever the replicated data changes.
-		]=]
-		Changed = Signal.new() :: Signal.Signal<T>,
-
-		--[=[
-			@prop Ready Types.Signal<T>
-			@within DataVaultClient
-			@readonly
-
-			Fired once when the initial replica is received.
-		]=]
-		Ready = Signal.new() :: Signal.Signal<T>,
-
-		PathObservers = {} :: { [string]: PathObserver<T> },
+		Changed = Signal.new(),
+		Ready = Signal.new(),
+		PathObservers = {} :: { [string]: PathObserver },
 		HasFiredReady = false,
 		Raw = nil :: T?,
 		Guard = Options.ClientGuard ~= "Off",
+		StoreName = Options.StoreName,
 	}
 
-	--[=[
-		Returns the key associated with the current replica.
-
-		@within DataVaultClient
-		@return string?
-	]=]
-	function Client:GetKey(): string?
-		return self.Key
-	end
-
-	--[=[
-		Creates and returns a deep copy of the current data.
-
-		@within DataVaultClient
-		@return T?
-	]=]
-	function Client:Snapshot(): T?
-		if self.Raw == nil then
-			return nil
+	local function ObservePath(Key: string, Path: { any }, Listener: (Value: any) -> ())
+		local PK = Util.PathKey(Path)
+		local Entry = Client.PathObservers[PK]
+		if not Entry then
+			Entry = { Path = Util.ClonePath(Path), Signal = Signal.new() }
+			Client.PathObservers[PK] = Entry
 		end
-		return Util.DeepCopy(self.Raw)
-	end
-
-	--[=[
-		Returns the value at a path within the replicated data.
-
-		@within DataVaultClient
-		@param Path Types.Path | string
-		@return any
-	]=]
-	function Client:GetAt(Path: Types.Path | string): any
-		if self.Raw == nil then
-			return nil
+		local Connection = Entry.Signal:Connect(Listener)
+		if Client.Raw ~= nil then
+			task.defer(Listener, Util.GetAt(Client.Raw, Path))
 		end
-		return GuardedValue(self, Util.GetAt(self.Raw, Util.NormalizePath(Path)))
+		return Connection
 	end
 
-	--[=[
-		Checks whether a path exists within the replicated data.
-
-		@within DataVaultClient
-		@param Path Types.Path | string
-		@return boolean
-	]=]
-	function Client:HasPath(Path: Types.Path | string): boolean
-		if self.Raw == nil then
-			return false
+	local function ObserveRoot(_Key: string, Listener: (Data: any) -> ())
+		local Connection = Client.Changed:Connect(Listener)
+		if Client.Data ~= nil then
+			task.defer(Listener, Client.Data)
 		end
-		return Util.HasAt(self.Raw, Util.NormalizePath(Path))
+		return Connection
+	end
+
+	local Bridge = {
+		GetRoot = function(_K: string)
+			return Client.Raw
+		end,
+		IsLoaded = function(_K: string)
+			return Client.Raw ~= nil
+		end,
+		WritePath = nil,
+		MutateRoot = nil,
+		ObservePath = ObservePath,
+		ObserveRoot = ObserveRoot,
+		Save = nil,
+		End = nil,
+		Replicate = nil,
+		ReadOnly = true,
+	}
+
+--[=[
+	Typed state tree for the local replica.
+
+	:::danger Type solver required
+	**Annotate:** `local S: DataVault.State<MyData> = Client:Explicit()`
+	:::
+
+	@within DataVaultClient
+	@return State<T>
+]=]
+	function Client:Explicit(): Types.State<T>
+		-- Client has a single replica; key is whatever server sent
+		return State.new(Bridge, Client.Key or Options.StoreName, {}) :: any
+	end
+
+--[=[
+	Current replicated data (read-only when ClientGuard is on).
+
+	@within DataVaultClient
+	@return T?
+]=]
+	function Client:Get(): T?
+		return self.Data
 	end
 
 	--[=[
-		Returns whether the initial replica has been received.
+		Whether the initial full replica has arrived.
 
 		@within DataVaultClient
 		@return boolean
@@ -307,78 +256,22 @@ function DataVaultClient.Open<T>(Options: Types.Config<T>)
 		return self.Raw ~= nil
 	end
 
-	--[=[
-		Observes changes to the entire data object.
+--[=[
+	Yields until data is ready (or timeout → nil).
 
-		The listener is immediately deferred with the current data if the
-		replica has already been received.
-
-		@within DataVaultClient
-		@param Listener (Data: T) -> ()
-		@return Types.Connection
-	]=]
-	function Client:Observe(Listener: (Data: T) -> ())
-		local Connection = self.Changed:Connect(Listener)
-		if self.Data ~= nil then
-			local Snapshot = self.Data
-			task.defer(Listener, Snapshot)
-		end
-		return Connection
-	end
-
-	--[=[
-		Observes changes to a specific path.
-
-		The listener is immediately deferred with the current value if
-		the replica has already been received.
-
-		@within DataVaultClient
-		@param Path Types.Path | string
-		@param Listener (Value: any) -> ()
-		@return Types.Connection
-	]=]
-	function Client:ObservePath(Path: Types.Path | string, Listener: (Value: any) -> ())
-		local Normalized = Util.NormalizePath(Path)
-		local Key = Util.PathKey(Normalized)
-		local Entry = self.PathObservers[Key]
-		if not Entry then
-			Entry = {
-				Path = Util.ClonePath(Normalized),
-				Signal = Signal.new(),
-			}
-			self.PathObservers[Key] = Entry
-		end
-
-		local Connection = Entry.Signal:Connect(Listener)
-		if self.Raw ~= nil then
-			local Snapshot = GuardedValue(self, Util.GetAt(self.Raw, Normalized))
-			task.defer(Listener, Snapshot)
-		end
-		return Connection
-	end
-
-	--[=[
-		Waits until the initial replica is received.
-
-		If a timeout is provided and expires before the replica arrives,
-		`nil` is returned.
-
-		@within DataVaultClient
-		@param Timeout number?
-		@return T?
-	]=]
+	@within DataVaultClient
+	@param Timeout number?
+	@return T?
+]=]
 	function Client:Wait(Timeout: number?): T?
 		if self.Data ~= nil then
 			return self.Data
 		end
-
 		if Timeout == nil then
 			return self.Changed:Wait()
 		end
-
 		local Thread = coroutine.running()
 		local Settled = false
-
 		local Connection = self.Changed:Once(function(Data)
 			if Settled then
 				return
@@ -386,7 +279,6 @@ function DataVaultClient.Open<T>(Options: Types.Config<T>)
 			Settled = true
 			task.spawn(Thread, Data)
 		end)
-
 		task.delay(Timeout, function()
 			if Settled then
 				return
@@ -395,22 +287,27 @@ function DataVaultClient.Open<T>(Options: Types.Config<T>)
 			Connection:Disconnect()
 			task.spawn(Thread, nil)
 		end)
-
 		return coroutine.yield()
 	end
 
-	--[=[
-		Requests a full synchronization from the server.
+--[=[
+	Requests a full sync from the server (usually automatic).
 
-		This is normally handled automatically when the client detects
-		a missing or out-of-order patch.
-
-		@within DataVaultClient
-	]=]
+	@within DataVaultClient
+]=]
 	function Client:RequestSync()
-		ReplicaRequest:FireServer({
-			StoreName = Options.StoreName,
-		})
+		ReplicaRequest:FireServer({ StoreName = Options.StoreName })
+	end
+
+--[=[
+	Observes the full replica root.
+
+	@within DataVaultClient
+	@param Listener (Data: T) -> ()
+	@return Connection
+]=]
+	function Client:Observe(Listener: (Data: T) -> ())
+		return ObserveRoot("", Listener)
 	end
 
 	Client.Changed:Connect(function(Data)
@@ -421,17 +318,16 @@ function DataVaultClient.Open<T>(Options: Types.Config<T>)
 		Client.Ready:Fire(Data)
 	end)
 
-	Clients[Options.StoreName] = Client :: any
-
+	Clients[Options.StoreName] = Client
 	task.defer(function()
 		if Client.Raw == nil then
 			Client:RequestSync()
 		end
 	end)
 
-	type Client = typeof(Client)
+	export type DataVaultClient = typeof(Client)
 
-	return Client :: Client
+	return Client
 end
 
 return DataVaultClient
