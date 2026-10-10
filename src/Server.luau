@@ -17,7 +17,7 @@
 
 	```lua
 	type MyData = typeof(Template)
-	local S: DataVault.State<MyData> = Server:Explicit(key)
+	local S = Server:Explicit(key)
 	-- or
 	local S: DataVault.State<MyData> = Server:Player(player)
 	```
