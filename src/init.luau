@@ -25,7 +25,7 @@
 
 	```lua
 	type MyData = typeof(Template)
-	local S = Server:State(key)
+	local S = Server:Explicit(key)
 	```
 	:::
 
