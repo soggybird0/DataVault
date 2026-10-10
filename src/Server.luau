@@ -19,7 +19,7 @@
 	type MyData = typeof(Template)
 	local S = Server:Explicit(key)
 	-- or
-	local S: DataVault.State<MyData> = Server:Player(player)
+	local S = Server:Player(player)
 	```
 
 	Without the new solver, runtime works but field/method autocomplete will not expand.
