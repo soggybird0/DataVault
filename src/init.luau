@@ -76,8 +76,6 @@ DataVault.Version = "1.1.0"
 ]=]
 function DataVault:Init<T>(Options: Types.Config<T>)
 	return {
-		Version = "1.1.0",
-
 		Server = (RunService:IsServer() and require(script.Server).Open(Options)) or nil,
 		Client = (RunService:IsClient() and require(script.Client).Open(Options)) or nil,
 	}
