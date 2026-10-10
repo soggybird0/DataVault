@@ -6,8 +6,7 @@
 
 	Shared type contracts for DataVault.
 
-	:::danger
-	Type solver required for Access / State
+	:::danger Type solver required for Access / State
 	**The new Luau type solver is required for typed `Access<T>` and `State<T>`.**
 
 	Enable `Workspace.UseNewLuauTypeSolver = Enabled` (Studio) or the Luau LSP
