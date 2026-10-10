@@ -57,7 +57,7 @@ local DataVault = {}
 	@within DataVault
 	@readonly
 ]=]
-DataVault.Version = "1.1.1"
+DataVault.Version = "1.1.0"
 
 --[=[
 	Opens a DataVault instance for the current environment.
