@@ -48,7 +48,6 @@ DataVault.Version = "1.1.0"
 
 	:::danger Type solver required
 	**Typed `State<T>` / `Access<T>` requires the new Luau type solver.**
-	See the class docs for how to enable it.
 	:::
 
 	@within DataVault
